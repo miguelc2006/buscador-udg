@@ -1,5 +1,8 @@
 import * as cheerio from 'cheerio';
 import iconv from 'iconv-lite';
+import { normalizeText } from './string-utils';
+
+export { normalizeText };
 
 export const SIIAU_OFERTA_URL = 'https://siiauescolar.siiau.udg.mx/wal/sspseca.consulta_oferta';
 
@@ -40,15 +43,6 @@ export function parseCicloFromSiiau(cicloSiiau: string): string {
     return `${year}${term}`;
   }
   return cicloSiiau;
-}
-
-export function normalizeText(text: string): string {
-  return text
-    .normalize('NFD')
-    .replace(/[\u0300-\u036f]/g, '')
-    .replace(/\s+/g, ' ')
-    .trim()
-    .toUpperCase();
 }
 
 export function parseTime(timeStr: string): string {
