@@ -1,0 +1,56 @@
+name: Reporte de Bug
+description: Registra un error o comportamiento incorrecto en el sistema.
+title: "fix: [Breve descripción del bug]"
+labels: ["bug"]
+body:
+  - type: markdown
+    attributes:
+      value: |
+        Por favor, completa la siguiente información para ayudarnos a identificar y solucionar el problema.
+  - type: input
+    id: version
+    attributes:
+      label: Versión afectada
+      placeholder: "Ej. v1.0.0"
+    validations:
+      required: true
+  - type: textarea
+    id: steps
+    attributes:
+      label: Pasos para reproducir
+      placeholder: |
+        1. Ir a...
+        2. Hacer clic en...
+        3. Ver el error...
+    validations:
+      required: true
+  - type: textarea
+    id: expected
+    attributes:
+      label: Resultado esperado
+      placeholder: Qué debería ocurrir.
+    validations:
+      required: true
+  - type: textarea
+    id: actual
+    attributes:
+      label: Resultado actual
+      placeholder: Qué ocurre realmente.
+    validations:
+      required: true
+  - type: dropdown
+    id: severity
+    attributes:
+      label: Severidad
+      options:
+        - "S1 — Bloqueante"
+        - "S2 — Mayor"
+        - "S3 — Menor"
+        - "S4 — Cosmético"
+    validations:
+      required: true
+  - type: textarea
+    id: evidence
+    attributes:
+      label: Evidencia / Logs
+      placeholder: Pega aquí logs, capturas de pantalla o mensajes de error.

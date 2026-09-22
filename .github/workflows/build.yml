@@ -1,0 +1,44 @@
+name: Build
+
+on:
+  push:
+    branches: [ main, develop ]
+  pull_request:
+    branches: [ main, develop ]
+
+jobs:
+  build:
+    runs-on: ubuntu-latest # Modificar si se requiere Windows o macOS
+
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+
+      # Configurar el entorno del lenguaje (Descomentar y adaptar según el stack)
+      # - name: Setup Node.js
+      #   uses: actions/setup-node@v4
+      #   with:
+      #     node-version: '[VERSION]' # Reemplazar por la versión del lenguaje
+      #     cache: '[BUILD_TOOL]'
+
+      # - name: Setup Java
+      #   uses: actions/setup-java@v4
+      #   with:
+      #     distribution: 'temurin'
+      #     java-version: '[VERSION]'
+      #     cache: '[BUILD_TOOL]'
+
+      # - name: Setup .NET
+      #   uses: actions/setup-dotnet@v4
+      #   with:
+      #     dotnet-version: '[VERSION]'
+
+      - name: Install dependencies
+        run: |
+          # Reemplazar por el comando de instalación de dependencias (ej. npm ci, mvn dependency:resolve)
+          echo "Instalando dependencias..."
+
+      - name: Build project
+        run: |
+          # Comando de compilación/construcción
+          [COMANDO_BUILD]

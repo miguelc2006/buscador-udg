@@ -1,0 +1,30 @@
+name: Propuesta de Mejora
+description: Sugiere una mejora en el código, rendimiento o refactorización.
+title: "refactor: [Breve descripción de la mejora]"
+labels: ["improvement"]
+body:
+  - type: markdown
+    attributes:
+      value: |
+        Describe la mejora o refactorización propuesta.
+  - type: textarea
+    id: description
+    attributes:
+      label: Descripción de la mejora
+      placeholder: ¿Qué se propone mejorar y por qué?
+    validations:
+      required: true
+  - type: textarea
+    id: benefit
+    attributes:
+      label: Beneficio esperado
+      placeholder: ¿Qué impacto positivo tendrá esta mejora (rendimiento, mantenibilidad, etc.)?
+    validations:
+      required: true
+  - type: textarea
+    id: affected_areas
+    attributes:
+      label: Áreas afectadas
+      placeholder: ¿Qué partes del código se verán modificadas?
+    validations:
+      required: true

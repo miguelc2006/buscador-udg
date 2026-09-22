@@ -1,0 +1,32 @@
+name: Test
+
+on:
+  push:
+    branches: [ main, develop ]
+  pull_request:
+    branches: [ main, develop ]
+
+jobs:
+  test:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+
+      # Configurar el entorno del lenguaje (Descomentar y adaptar según el stack)
+      # - name: Setup Node.js
+      #   uses: actions/setup-node@v4
+      #   with:
+      #     node-version: '[VERSION]'
+      #     cache: '[BUILD_TOOL]'
+
+      - name: Install dependencies
+        run: |
+          # Reemplazar por el comando de instalación de dependencias
+          echo "Instalando dependencias..."
+
+      - name: Run tests
+        run: |
+          # Comando de ejecución de pruebas
+          [COMANDO_TEST]

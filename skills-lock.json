@@ -1,0 +1,80 @@
+{
+  "version": "1.0.0",
+  "generated": "[FECHA]",
+  "project": "[PROYECTO]",
+  "skills": {
+    "default": [
+      {
+        "name": "caveman",
+        "path": ".agents/skills/caveman/SKILL.md",
+        "description": "Ultra-compressed communication mode",
+        "active": true
+      },
+      {
+        "name": "create-skill",
+        "path": ".agents/skills/create-skill/SKILL.md",
+        "description": "Guide for creating effective skills",
+        "active": true
+      },
+      {
+        "name": "diagnose",
+        "path": ".agents/skills/diagnose/SKILL.md",
+        "description": "Disciplined diagnosis loop for bugs",
+        "active": true
+      },
+      {
+        "name": "git-commit",
+        "path": ".agents/skills/git-commit/SKILL.md",
+        "description": "Conventional commits in Spanish",
+        "active": true
+      },
+      {
+        "name": "git-context-reader",
+        "path": ".agents/skills/git-context-reader/SKILL.md",
+        "description": "Recover project context from git",
+        "active": true
+      },
+      {
+        "name": "git-flow-branch-creator",
+        "path": ".agents/skills/git-flow-branch-creator/SKILL.md",
+        "description": "Intelligent Git Flow branch creation",
+        "active": true
+      },
+      {
+        "name": "grill-me",
+        "path": ".agents/skills/grill-me/SKILL.md",
+        "description": "Exhaustive design interview",
+        "active": true
+      },
+      {
+        "name": "workflow-orchestration-patterns",
+        "path": ".agents/skills/workflow-orchestration-patterns/SKILL.md",
+        "description": "Workflow orchestration patterns",
+        "active": true
+      }
+    ],
+    "custom": []
+  },
+  "agents": [
+    {
+      "name": "Project Planner",
+      "path": ".github/agents/project-planner.agent.md",
+      "active": true
+    },
+    {
+      "name": "Implementation",
+      "path": ".github/agents/implementation.agent.md",
+      "active": true
+    },
+    {
+      "name": "Code Reviewer",
+      "path": ".github/agents/code-reviewer.agent.md",
+      "active": true
+    },
+    {
+      "name": "Workflow Orchestrator",
+      "path": ".github/agents/workflow-orchestrator.agent.md",
+      "active": true
+    }
+  ]
+}

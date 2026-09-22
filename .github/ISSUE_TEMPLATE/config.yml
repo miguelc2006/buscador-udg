@@ -1,0 +1,30 @@
+name: Cambio de Configuración
+description: Registra cambios en la configuración del proyecto o infraestructura.
+title: "chore(config): [Breve descripción del cambio]"
+labels: ["config"]
+body:
+  - type: markdown
+    attributes:
+      value: |
+        Registra los detalles del cambio de configuración propuesto.
+  - type: textarea
+    id: description
+    attributes:
+      label: Descripción del cambio
+      placeholder: ¿Qué configuración se va a modificar y por qué?
+    validations:
+      required: true
+  - type: textarea
+    id: impact
+    attributes:
+      label: Impacto y riesgos
+      placeholder: ¿Cómo afecta este cambio a los entornos de desarrollo, pruebas o producción?
+    validations:
+      required: true
+  - type: textarea
+    id: rollback
+    attributes:
+      label: Plan de reversión (Rollback)
+      placeholder: ¿Cómo se puede revertir este cambio en caso de fallo?
+    validations:
+      required: true

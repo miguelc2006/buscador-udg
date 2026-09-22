@@ -1,0 +1,49 @@
+# Build outputs
+target/
+build/
+dist/
+out/
+
+# IDE
+.idea/
+*.iml
+.vscode/
+
+# OS
+.DS_Store
+Thumbs.db
+desktop.ini
+
+# Java
+*.class
+*.jar
+*.war
+*.ear
+hs_err_pid*
+
+# Maven
+.mvn/wrapper/maven-wrapper.jar
+
+# Node (if applicable)
+node_modules/
+npm-debug.log*
+
+# Logs
+*.log
+logs/
+
+# Environment
+.env
+.env.local
+.env.*.local
+
+# Secrets
+*.pem
+*.key
+secrets/
+
+# Temporary
+*.tmp
+*.bak
+*.swp
+*~

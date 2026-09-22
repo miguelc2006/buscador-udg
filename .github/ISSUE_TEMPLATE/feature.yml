@@ -1,0 +1,44 @@
+name: Propuesta de Feature
+description: Propón una nueva funcionalidad o característica para el proyecto.
+title: "feat: [Breve descripción de la funcionalidad]"
+labels: ["feature"]
+body:
+  - type: markdown
+    attributes:
+      value: |
+        Describe la nueva funcionalidad que deseas proponer.
+  - type: textarea
+    id: problem
+    attributes:
+      label: Problema / Necesidad
+      placeholder: ¿Qué necesidad o problema resuelve esta funcionalidad?
+    validations:
+      required: true
+  - type: input
+    id: user
+    attributes:
+      label: Usuario afectado
+      placeholder: ¿Quién se beneficia de esta funcionalidad?
+    validations:
+      required: true
+  - type: textarea
+    id: proposal
+    attributes:
+      label: Propuesta
+      placeholder: Describe detalladamente cómo debería funcionar.
+    validations:
+      required: true
+  - type: textarea
+    id: acceptance_criteria
+    attributes:
+      label: Criterios de aceptación
+      placeholder: |
+        - [ ] Criterio 1
+        - [ ] Criterio 2
+    validations:
+      required: true
+  - type: textarea
+    id: risks
+    attributes:
+      label: Riesgos / Dependencias
+      placeholder: ¿Existen riesgos técnicos o dependencias con otras tareas?

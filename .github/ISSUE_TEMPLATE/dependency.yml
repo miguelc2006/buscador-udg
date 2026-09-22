@@ -1,0 +1,49 @@
+name: Actualización de Dependencia
+description: Registra la necesidad de actualizar o añadir una dependencia.
+title: "chore(deps): update [nombre-dependencia]"
+labels: ["dependencies"]
+body:
+  - type: markdown
+    attributes:
+      value: |
+        Registra los detalles de la dependencia que requiere actualización.
+  - type: input
+    id: dependency_name
+    attributes:
+      label: Dependencia
+      placeholder: "Ej. lodash"
+    validations:
+      required: true
+  - type: input
+    id: current_version
+    attributes:
+      label: Versión actual
+      placeholder: "Ej. 4.17.20"
+    validations:
+      required: true
+  - type: input
+    id: target_version
+    attributes:
+      label: Versión objetivo
+      placeholder: "Ej. 4.17.21"
+    validations:
+      required: true
+  - type: textarea
+    id: breaking_changes
+    attributes:
+      label: Cambios incompatibles (Breaking Changes)
+      placeholder: ¿Existen cambios incompatibles documentados en la nueva versión?
+  - type: textarea
+    id: affected_areas
+    attributes:
+      label: Áreas afectadas
+      placeholder: ¿Qué partes del sistema utilizan esta dependencia?
+    validations:
+      required: true
+  - type: textarea
+    id: required_tests
+    attributes:
+      label: Pruebas requeridas
+      placeholder: ¿Qué pruebas específicas deben ejecutarse para validar el cambio?
+    validations:
+      required: true

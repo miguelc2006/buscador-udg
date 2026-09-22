@@ -1,0 +1,36 @@
+name: Release
+
+on:
+  push:
+    tags:
+      - 'v*' # Se ejecuta al crear un tag que empiece por v (ej. v1.0.0)
+
+jobs:
+  release:
+    runs-on: ubuntu-latest
+    permissions:
+      contents: write # Requerido para crear la release y subir artefactos
+
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+
+      # Configurar el entorno del lenguaje (Descomentar y adaptar según el stack)
+      # - name: Setup Node.js
+      #   uses: actions/setup-node@v4
+      #   with:
+      #     node-version: '[VERSION]'
+
+      - name: Build project
+        run: |
+          # Comando de compilación/construcción
+          [COMANDO_BUILD]
+
+      - name: Create GitHub Release
+        uses: softprops/action-gh-release@v2
+        with:
+          draft: false
+          prerelease: false
+          generate_release_notes: true # Genera automáticamente las notas basadas en los PRs
+          # files: |
+          #   dist/mi-artefacto.zip # Ruta al artefacto generado para adjuntar a la release
