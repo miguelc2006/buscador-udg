@@ -4,35 +4,34 @@
 
 ## Objetivo
 
-**T-02 — Scaffolding del Proyecto Frontend (React + Vite + Tailwind CSS)**
+**T-03 — Pipeline de Ingesta y Scraping en Supabase Edge Functions**
 
-Configurar la estructura base del cliente frontend con React 18, Vite, TypeScript, Tailwind CSS, Lucide React y cliente `@supabase/supabase-js`, estableciendo el layout base, tema visual y soporte de variables de entorno.
+Desarrollar la lógica de extracción, parseo y sincronización por lotes de la oferta académica de la UDG (basada en el extractor de `Horario-UDG`) hacia la base de datos Supabase, soportando filtrado por Centro Universitario y Ciclo escolar.
 
 ## Identificación
 
 | Campo | Valor |
 |-------|-------|
-| ID | T-02 |
-| Tipo | INFRA / SETUP |
+| ID | T-03 |
+| Tipo | BACKEND / INGESTA |
 | Prioridad | 🔴 CRÍTICA |
-| Complejidad | BAJA |
-| Estado | 🚧 PRE-REVISIÓN |
+| Complejidad | MEDIA |
+| Estado | 📋 BACKLOG |
 
 ## Alcance
 
-### Completado
-- [x] Inicializar proyecto Vite con React 18 y TypeScript
-- [x] Instalar y configurar Tailwind CSS, Lucide React y `@supabase/supabase-js`
-- [x] Configurar `.env.example`, `src/types/database.ts` y cliente centralizado `src/lib/supabase.ts`
-- [x] Crear Layout base (Navbar con selector de Centro Universitario y Ciclo, Tabs de navegación: Profesores, Aulas Libres, Grupos)
-- [x] Crear vistas iniciales (`ProfessorsView`, `FreeRoomsView`, `GroupsView`) y `Footer`
-- [x] Validar compilación limpia con `npm run build`
+### Pendiente
+- [ ] Analizar el scraper/parser de `Horario-UDG` para reutilizar y adaptar la lógica de tablas HTML
+- [ ] Crear la Edge Function / Script Deno & TypeScript (`supabase/functions/sync-oferta-udg/index.ts`)
+- [ ] Implementar normalización de nombres de profesores, asignación de materias y módulos/aulas
+- [ ] Implementar inserción transaccional / upsert por lotes en `oferta_academica`, `profesores`, `materias`, `modulos`, `aulas` y `sesiones_horario`
+- [ ] Crear script local de sincronización CLI (`scripts/sync-oferta.ts`) para pruebas y cargas masivas sin límites de timeout
 
 ## Verificación
 
-- [x] Compilación frontend limpia (`npm run build`) → ✅ COMPLETADO (0 errores)
-- [ ] Pre-revisión de cambios → ⏳ AGUARDANDO APROBACIÓN DEL USUARIO
-- [ ] Commit semántico en rama `feature/T-02-frontend-scaffolding` → ⏳ PENDIENTE
+- [ ] Script de ingesta probado y validado con datos reales/mock de UDG → ⏳ PENDIENTE
+- [ ] Pre-revisión de cambios → ⏳ PENDIENTE
+- [ ] Commit semántico en rama `feature/T-03-pipeline-ingesta` → ⏳ PENDIENTE
 
 ## Identificación
 

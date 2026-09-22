@@ -27,6 +27,27 @@
 
 ## Sesiones
 
+## 2026-09-22 — Scaffolding del Proyecto Frontend (T-02)
+
+### Objetivo
+Configurar la base del cliente frontend con React 18, Vite, TypeScript, Tailwind CSS, Lucide React y cliente Supabase.
+
+### Hallazgos
+- Se requiere `src/vite-env.d.ts` para el tipado correcto de `import.meta.env` con Vite en modo estricto.
+- El bundle de producción genera 161 kB JS y 13.9 kB CSS, altamente optimizado para carga rápida.
+
+### Cambios
+- Creación de `package.json`, `vite.config.ts`, `tsconfig.json`, `tailwind.config.js`, `postcss.config.js` e `index.html`.
+- Creación de `src/types/database.ts`, `src/lib/supabase.ts`.
+- Creación de `Navbar`, `Footer`, `ProfessorsView`, `FreeRoomsView`, `GroupsView` y `App.tsx`.
+- Commit en `feature/T-02-frontend-scaffolding` y merge a `develop`.
+
+### Decisiones
+- Paleta visual institucional UDG (Azul `#002B49`, Dorado `#C59B27`, Rojo `#9B111E`).
+
+### Validaciones
+- Compilación: `npm run build` → ✅ 0 errores.
+
 ## 2026-09-22 — Inicialización y Planificación Arquitectónica (T-01)
 
 ### Objetivo
