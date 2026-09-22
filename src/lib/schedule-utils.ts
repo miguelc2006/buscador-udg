@@ -1,5 +1,3 @@
-import { SesionHorario } from '../types/database';
-
 export type DiaSiiau = 'L' | 'M' | 'I' | 'J' | 'V' | 'S';
 
 export const DIAS_MAP: Record<DiaSiiau, string> = {
@@ -59,7 +57,18 @@ export function timeToMinutes(timeStr: string): number {
   return h * 60 + m;
 }
 
-export interface SesionConDetalles extends SesionHorario {
+export interface SesionConDetalles {
+  id: string;
+  dia: DiaSiiau;
+  hora_inicio: string;
+  hora_fin: string;
+  oferta_id?: string;
+  nrc?: string;
+  ciclo?: string;
+  modulo_id?: string;
+  aula_id?: string;
+  modulo_texto?: string;
+  aula_texto?: string;
   materia_nombre?: string;
   materia_clave?: string;
   seccion?: string;
@@ -125,5 +134,73 @@ export function calcularEstadoProfesor(
 
   return {
     enClase: false,
+  };
+}
+
+/**
+ * Determina si dos intervalos de tiempo se solapan
+ */
+export function haySolapamientoHorario(
+  inicioA: string,
+  finA: string,
+  inicioB: string,
+  finB: string
+): boolean {
+  const minInicioA = timeToMinutes(inicioA);
+  const minFinA = timeToMinutes(finA);
+  const minInicioB = timeToMinutes(inicioB);
+  const minFinB = timeToMinutes(finB);
+
+  return minInicioA < minFinB && minFinA > minInicioB;
+}
+
+export interface EstadoOcupacionAula {
+  disponible: boolean;
+  sesionConflicto?: SesionConDetalles;
+  proximaOcupacionHoy?: SesionConDetalles;
+  minutosParaProxima?: number;
+}
+
+/**
+ * Determina la disponibilidad de un aula para un día y rango horario dado
+ */
+export function calcularDisponibilidadAula(
+  sesiones: SesionConDetalles[],
+  dia: DiaSiiau,
+  horaInicio: string,
+  horaFin: string
+): EstadoOcupacionAula {
+  const sesionesDia = (sesiones || []).filter((s) => s.dia === dia);
+
+  // Buscar si hay colisión en el rango especificado
+  const conflicto = sesionesDia.find((s) =>
+    haySolapamientoHorario(s.hora_inicio, s.hora_fin, horaInicio, horaFin)
+  );
+
+  if (conflicto) {
+    return {
+      disponible: false,
+      sesionConflicto: conflicto,
+    };
+  }
+
+  // Buscar próxima sesión a partir de la hora de fin consultada (o hora actual)
+  const minFinConsulta = timeToMinutes(horaFin);
+  const proximas = sesionesDia
+    .filter((s) => timeToMinutes(s.hora_inicio) >= minFinConsulta)
+    .sort((a, b) => timeToMinutes(a.hora_inicio) - timeToMinutes(b.hora_inicio));
+
+  if (proximas.length > 0) {
+    const proxima = proximas[0];
+    const minutosPara = timeToMinutes(proxima.hora_inicio) - minFinConsulta;
+    return {
+      disponible: true,
+      proximaOcupacionHoy: proxima,
+      minutosParaProxima: minutosPara,
+    };
+  }
+
+  return {
+    disponible: true,
   };
 }

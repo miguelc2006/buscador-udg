@@ -4,17 +4,17 @@
 
 ## Objetivo
 
-**T-05 — Buscador de Aulas Libres por Módulo, Día y Rango Horario**
+**T-06 — Localizador de Grupos y Seguimiento de Generaciones**
 
-Conectar la vista `src/components/views/FreeRoomsView.tsx` con la función RPC `get_aulas_libres` de Supabase, implementando selectores interactivos de día de la semana, rango de horario (inicio y fin), filtro por módulo de aulas, vista en cuadrícula y estado de ocupación.
+Implementar el módulo de localización y rastreo de grupos académicos por carrera/sección y seguimiento de cohortes generacionales (avance por semestre estimado, materias y salones compartidos).
 
 ## Identificación
 
 | Campo | Valor |
 |-------|-------|
-| ID | T-05 |
+| ID | T-06 |
 | Tipo | FRONTEND / FEATURE |
-| Prioridad | 🔴 CRÍTICA |
+| Prioridad | 🟠 ALTA |
 | Complejidad | MEDIA |
 | Estado | 📋 BACKLOG |
 | Rama | develop |
@@ -22,14 +22,15 @@ Conectar la vista `src/components/views/FreeRoomsView.tsx` con la función RPC `
 ## Alcance
 
 ### Pendiente
-- [ ] Implementar servicio `src/services/rooms.ts` para invocar la función RPC `get_aulas_libres` o calcular disponibilidad en memoria con fallback
-- [ ] Conectar `src/components/views/FreeRoomsView.tsx` con selectores de Centro, Módulo, Día y Rango Horario
-- [ ] Añadir selector rápido "Aulas libres AHORA" usando la hora y día actuales
-- [ ] Agrupar aulas libres por módulo con indicador de capacidad y tipo (Aula, Laboratorio, Taller)
-- [ ] Pruebas unitarias de disponibilidad de aulas en Vitest
+- [ ] Implementar servicio `src/services/groups.ts` para agrupar ofertas por carrera, sección/turno y cohorte estimada
+- [ ] Conectar `src/components/views/GroupsView.tsx` con buscador interactivo por carrera, código de materia o sección
+- [ ] Añadir visualizador de horario consolidado de grupo (vista semanal de todas las materias de una misma sección)
+- [ ] Implementar estimador de generación/cohorte según semestre y avance reticular
+- [ ] Pruebas unitarias de agrupación y cálculo de horarios de grupo en Vitest
 
 ## Tareas anteriores
 
+- `T-05` — Buscador de Aulas Libres por Módulo, Día y Rango Horario (✅ COMPLETADO)
 - `T-04` — Buscador de Profesores con Filtros y Estado en Tiempo Real (✅ COMPLETADO)
 - `T-03` — Pipeline de Ingesta y Scraping en Supabase Edge Functions / CLI (✅ COMPLETADO)
 - `T-02` — Scaffolding del Proyecto Frontend (React + Vite + Tailwind CSS) (✅ COMPLETADO)
