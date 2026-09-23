@@ -7,7 +7,7 @@
 - Nombre: Buscador UDG
 - Versión: v0.1.0
 - Rama principal: main (desarrollo en `develop`)
-- Etapa actual: Módulos Core Completados (v0.1.0 lista para Release)
+- Etapa actual: Módulos Core Completados (v0.1.0 lista para Release) / Planificación Fase 2
 - Descripción: Plataforma web para la consulta y búsqueda inteligente de profesores, aulas libres, ubicación de grupos y seguimiento de generaciones a partir de la oferta académica de la Universidad de Guadalajara.
 
 ## Tecnologías
@@ -19,7 +19,7 @@
 | Sincronización / Ingesta | Supabase Edge Functions (Deno / TS) | Serverless Scraping SIIAU |
 | Testing | Vitest | 29 tests unitarios pasando (4 suites) |
 | Hosting | Vercel / Cloudflare Pages | Free Tier |
-| Mapeo Generacional | Mallas curriculares / JSON | Agrupación de cohortes por sección y carrera |
+| Mapeo Generacional | Mallas curriculares / JSON | Agrupación de cohortes por sección y carrera (Mock) |
 
 ## Arquitectura vigente
 
@@ -33,4 +33,4 @@ Arquitectura serverless desacoplada:
 1. **Extractor / Sincronizador de Datos (T-03):** Ingesta de tablas de oferta académica UDG a Supabase con parser robusto. (✅ Completado)
 2. **Buscador de Profesores (T-04):** Ubicación actual, materias impartidas, horarios, aulas y estado en tiempo real (En clase / Disponible / Libre). (✅ Completado)
 3. **Buscador de Aulas Libres (T-05):** Consulta interactiva de espacios disponibles por centro universitario, módulo, día y rango horario, cálculo de colisiones e inspector semanal por aula. (✅ Completado)
-4. **Localizador de Grupos y Generaciones (T-06):** Mapeo de avance reticular, visualización de horario semanal consolidado por sección, cálculo de cohorte/generación y live status del grupo. (✅ Completado)
+4. **Localizador de Grupos y Generaciones (T-06):** Mapeo de avance reticular, visualización de horario semanal consolidado por sección, cálculo de cohorte/generación y live status del grupo. (✅ Base Conceptual Implementada / Ingeniería Inversa Pendiente)

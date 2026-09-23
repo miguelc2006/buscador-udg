@@ -47,18 +47,24 @@
 
 ## Fase 2: Mapeo Avanzado e Inteligencia de Grupos — v0.2.0
 
-### `T-06` — Spike de Investigación: Mallas Curriculares y Mapeo de Generaciones
-- **Tipo:** INVESTIGACIÓN / SPIKE
+### `T-06` — Módulo: Localizador de Grupos y Generaciones (Base Conceptual)
+- **Tipo:** FEATURE / INVESTIGACIÓN
 - **Prioridad:** 🟡 MEDIA
-- **Objetivo:** Investigar y prototipar la obtención de planes de estudio y materias por semestre sugerido para mapear ubicaciones de generaciones completas.
+- **Estado:** ✅ Base conceptual implementada | 🚧 Ingeniería inversa pendiente
+- **Objetivo:** Vista por carrera y semestre que mapee los salones donde se encuentran los grupos de una generación en determinado horario.
+- **Criterios de Aceptación:**
+  - [x] Interfaz de búsqueda y filtrado por carrera, semestre y turno.
+  - [x] Modal de horario consolidado por grupo.
+  - [x] Estimador de cohorte generacional.
+  - [ ] **Pendiente:** Ingeniería inversa y scraping de mallas curriculares reales de UDG para reemplazar el catálogo mock (ej. `MALLA_INCO`).
+
+### `T-07` — Spike de Investigación: Extracción de Mallas Curriculares
+- **Tipo:** INVESTIGACIÓN / SPIKE
+- **Prioridad:** 🟠 ALTA
+- **Objetivo:** Investigar y prototipar la obtención automatizada de planes de estudio y materias por semestre sugerido desde SIIAU o portales de Centros Universitarios.
 - **Criterios de Aceptación:**
   - Documento de propuesta técnica con fuentes de mallas de carreras principales (ej. CUCEI / CUCEA).
-  - Estructura de datos para relacionar carrera + semestre con materias activas.
-
-### `T-07` — Módulo: Localizador de Grupos y Generaciones
-- **Tipo:** FEATURE
-- **Prioridad:** 🟡 MEDIA
-- **Objetivo:** Vista por carrera y semestre que mapee los salones donde se encuentran los grupos de una generación en determinado horario.
+  - Script o Edge Function para ingestar mallas curriculares a Supabase.
 
 ---
 

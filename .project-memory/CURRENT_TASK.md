@@ -1,35 +1,34 @@
 ﻿# Tarea actual
 
-Última actualización: 2026-09-22
+Última actualización: 2026-09-23
 
 ## Objetivo
 
-**T-06 — Localizador de Grupos y Seguimiento de Generaciones**
+**T-07 — Planificación de Nueva Ruta (Roadmap Phase 2)**
 
-Implementar el módulo de localización y rastreo de grupos académicos por carrera/sección y seguimiento de cohortes generacionales (avance por semestre estimado, materias y salones compartidos).
+Estandarizar protocolos, documentar el estado actual (T-06 como base conceptual) y desarrollar una nueva fase de planificación de ruta para los siguientes pasos del proyecto.
 
 ## Identificación
 
 | Campo | Valor |
 |-------|-------|
-| ID | T-06 |
-| Tipo | FRONTEND / FEATURE |
+| ID | T-07 |
+| Tipo | PLANIFICACIÓN |
 | Prioridad | 🟠 ALTA |
-| Complejidad | MEDIA |
-| Estado | ✅ COMPLETADO |
-| Rama | feature/T-06-localizador-grupos |
+| Complejidad | BAJA |
+| Estado | 🚧 EN PROGRESO |
+| Rama | develop |
 
 ## Alcance
 
-### Completado
-- [x] Implementar servicio `src/services/groups.ts` para agrupar ofertas por carrera, sección/turno y cohorte estimada
-- [x] Conectar `src/components/views/GroupsView.tsx` con buscador interactivo por carrera, código de materia o sección
-- [x] Añadir visualizador de horario consolidado de grupo (vista semanal de todas las materias de una misma sección)
-- [x] Implementar estimador de generación/cohorte según semestre y avance reticular
-- [x] Pruebas unitarias de agrupación y cálculo de horarios de grupo en Vitest (11 tests)
+### Pendiente
+- [ ] Estandarizar protocolos de documentación y arquitectura.
+- [ ] Definir los siguientes pasos para la ingeniería inversa de mallas curriculares.
+- [ ] Esperar instrucciones del usuario para la nueva fase de planificación.
 
 ## Tareas anteriores
 
+- `T-06` — Localizador de Grupos y Seguimiento de Generaciones (✅ Base Conceptual Implementada / Ingeniería Inversa Pendiente)
 - `T-05` — Buscador de Aulas Libres por Módulo, Día y Rango Horario (✅ COMPLETADO)
 - `T-04` — Buscador de Profesores con Filtros y Estado en Tiempo Real (✅ COMPLETADO)
 - `T-03` — Pipeline de Ingesta y Scraping en Supabase Edge Functions / CLI (✅ COMPLETADO)
