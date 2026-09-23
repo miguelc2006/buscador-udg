@@ -18,7 +18,7 @@ CREATE TABLE IF NOT EXISTS public.centros_universitarios (
 
 -- 3. Tabla de Profesores
 CREATE TABLE IF NOT EXISTS public.profesores (
-    id UUID PRIMARY KEY DEFAULT uuid_generate_v4(),
+    id UUID PRIMARY KEY DEFAULT gen_random_uuid(),
     codigo_profesor VARCHAR(50),
     nombre_completo VARCHAR(255) NOT NULL,
     nombre_normalizado VARCHAR(255) NOT NULL, -- Minúsculas sin acentos para búsqueda rápida
@@ -38,7 +38,7 @@ CREATE TABLE IF NOT EXISTS public.materias (
 
 -- 5. Tabla de Módulos / Edificios
 CREATE TABLE IF NOT EXISTS public.modulos (
-    id UUID PRIMARY KEY DEFAULT uuid_generate_v4(),
+    id UUID PRIMARY KEY DEFAULT gen_random_uuid(),
     centro_codigo VARCHAR(20) REFERENCES public.centros_universitarios(codigo) ON DELETE CASCADE,
     codigo_modulo VARCHAR(50) NOT NULL, -- Ej: 'M', 'Y', 'Aulas 1'
     nombre VARCHAR(255),
@@ -48,7 +48,7 @@ CREATE TABLE IF NOT EXISTS public.modulos (
 
 -- 6. Tabla de Aulas / Espacios
 CREATE TABLE IF NOT EXISTS public.aulas (
-    id UUID PRIMARY KEY DEFAULT uuid_generate_v4(),
+    id UUID PRIMARY KEY DEFAULT gen_random_uuid(),
     centro_codigo VARCHAR(20) REFERENCES public.centros_universitarios(codigo) ON DELETE CASCADE,
     modulo_id UUID REFERENCES public.modulos(id) ON DELETE SET NULL,
     codigo_aula VARCHAR(50) NOT NULL, -- Ej: 'M101', 'LAB-1', 'AULA 3'
@@ -60,7 +60,7 @@ CREATE TABLE IF NOT EXISTS public.aulas (
 
 -- 7. Tabla de Oferta Académica (Secciones / NRCs por Ciclo)
 CREATE TABLE IF NOT EXISTS public.oferta_academica (
-    id UUID PRIMARY KEY DEFAULT uuid_generate_v4(),
+    id UUID PRIMARY KEY DEFAULT gen_random_uuid(),
     ciclo VARCHAR(20) NOT NULL, -- Ej: '2026A', '2026B'
     nrc VARCHAR(20) NOT NULL,
     centro_codigo VARCHAR(20) REFERENCES public.centros_universitarios(codigo) ON DELETE CASCADE,
@@ -77,7 +77,7 @@ CREATE TABLE IF NOT EXISTS public.oferta_academica (
 
 -- 8. Tabla de Sesiones y Horarios
 CREATE TABLE IF NOT EXISTS public.sesiones_horario (
-    id UUID PRIMARY KEY DEFAULT uuid_generate_v4(),
+    id UUID PRIMARY KEY DEFAULT gen_random_uuid(),
     oferta_id UUID REFERENCES public.oferta_academica(id) ON DELETE CASCADE,
     nrc VARCHAR(20) NOT NULL,
     ciclo VARCHAR(20) NOT NULL,
