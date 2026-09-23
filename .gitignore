@@ -47,3 +47,7 @@ secrets/
 *.bak
 *.swp
 *~
+
+# Supabase
+supabase/.temp/
+.supabase/
