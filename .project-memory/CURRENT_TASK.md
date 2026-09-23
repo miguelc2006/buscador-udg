@@ -16,18 +16,20 @@ Conectar el proyecto con un scraping real de los datos de SIIAU sobre la tabla d
 | Tipo | BACKEND / INGESTA |
 | Prioridad | 🟠 ALTA |
 | Complejidad | MEDIA |
-| Estado | 🚧 EN PROGRESO |
+| Estado | ✅ COMPLETADO |
 | Rama | feature/T-08-scraping-siiau |
 
 ## Alcance
 
 ### Pendiente
-- [ ] Poblar la base de datos de Supabase con datos reales de la oferta académica.
-- [ ] Validar que el frontend consuma correctamente los datos reales.
+- (Ninguno)
 
 ### Completado
 - [x] Adaptar la lógica de scraping de `Horario-UDG` (`api/_helpers/siiau.js` y `api/consultar-oferta.js`).
 - [x] Integrar el scraper en Supabase Edge Functions o como un worker de ingesta.
+- [x] Poblar la base de datos de Supabase con datos reales de la oferta académica (CUCEI INCO e INNI).
+- [x] Validar que el frontend consuma correctamente los datos reales (Profesores, Aulas Libres, Grupos).
+- [x] Corregir RPC `get_aulas_libres` para aceptar `p_codigo_modulo` como VARCHAR en lugar de UUID.
 
 ## Tareas anteriores
 

@@ -419,7 +419,7 @@ export async function searchFreeRooms(
       p_dia: dia,
       p_hora_inicio: `${horaInicio}:00`,
       p_hora_fin: `${horaFin}:00`,
-      p_modulo_id: moduloId || null,
+      p_codigo_modulo: moduloId && moduloId !== 'ALL' ? moduloId : null,
     });
 
     if (!rpcError && rpcAulas && rpcAulas.length > 0) {
