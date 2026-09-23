@@ -16,17 +16,17 @@ Implementar el módulo de localización y rastreo de grupos académicos por carr
 | Tipo | FRONTEND / FEATURE |
 | Prioridad | 🟠 ALTA |
 | Complejidad | MEDIA |
-| Estado | 📋 BACKLOG |
-| Rama | develop |
+| Estado | ✅ COMPLETADO |
+| Rama | feature/T-06-localizador-grupos |
 
 ## Alcance
 
-### Pendiente
-- [ ] Implementar servicio `src/services/groups.ts` para agrupar ofertas por carrera, sección/turno y cohorte estimada
-- [ ] Conectar `src/components/views/GroupsView.tsx` con buscador interactivo por carrera, código de materia o sección
-- [ ] Añadir visualizador de horario consolidado de grupo (vista semanal de todas las materias de una misma sección)
-- [ ] Implementar estimador de generación/cohorte según semestre y avance reticular
-- [ ] Pruebas unitarias de agrupación y cálculo de horarios de grupo en Vitest
+### Completado
+- [x] Implementar servicio `src/services/groups.ts` para agrupar ofertas por carrera, sección/turno y cohorte estimada
+- [x] Conectar `src/components/views/GroupsView.tsx` con buscador interactivo por carrera, código de materia o sección
+- [x] Añadir visualizador de horario consolidado de grupo (vista semanal de todas las materias de una misma sección)
+- [x] Implementar estimador de generación/cohorte según semestre y avance reticular
+- [x] Pruebas unitarias de agrupación y cálculo de horarios de grupo en Vitest (11 tests)
 
 ## Tareas anteriores
 
