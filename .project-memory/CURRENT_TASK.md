@@ -4,31 +4,36 @@
 
 ## Objetivo
 
-**T-07 — Planificación de Nueva Ruta (Roadmap Phase 2)**
+**T-08 — Conexión con Scraping Real de Oferta Académica (SIIAU)**
 
-Estandarizar protocolos, documentar el estado actual (T-06 como base conceptual) y desarrollar una nueva fase de planificación de ruta para los siguientes pasos del proyecto.
+Conectar el proyecto con un scraping real de los datos de SIIAU sobre la tabla de oferta académica, basándose en la extracción de datos ya utilizada en el proyecto `C:\Users\amaca\Github\Horario-UDG`.
 
 ## Identificación
 
 | Campo | Valor |
 |-------|-------|
-| ID | T-07 |
-| Tipo | PLANIFICACIÓN |
+| ID | T-08 |
+| Tipo | BACKEND / INGESTA |
 | Prioridad | 🟠 ALTA |
-| Complejidad | BAJA |
+| Complejidad | MEDIA |
 | Estado | 🚧 EN PROGRESO |
-| Rama | develop |
+| Rama | feature/T-08-scraping-siiau |
 
 ## Alcance
 
 ### Pendiente
-- [ ] Estandarizar protocolos de documentación y arquitectura.
-- [ ] Definir los siguientes pasos para la ingeniería inversa de mallas curriculares.
-- [ ] Esperar instrucciones del usuario para la nueva fase de planificación.
+- [ ] Poblar la base de datos de Supabase con datos reales de la oferta académica.
+- [ ] Validar que el frontend consuma correctamente los datos reales.
+
+### Completado
+- [x] Adaptar la lógica de scraping de `Horario-UDG` (`api/_helpers/siiau.js` y `api/consultar-oferta.js`).
+- [x] Integrar el scraper en Supabase Edge Functions o como un worker de ingesta.
 
 ## Tareas anteriores
 
-- `T-06` — Localizador de Grupos y Seguimiento de Generaciones (✅ Base Conceptual Implementada / Ingeniería Inversa Pendiente)
+- `T-09` — Conexión del Proyecto con GitHub, Supabase y Vercel (✅ COMPLETADO)
+- `T-07` — Planificación de Nueva Ruta (Roadmap Phase 2) (✅ COMPLETADO)
+- `T-06` — Localizador de Grupos y Seguimiento de Generaciones (✅ Base Conceptual Implementada)
 - `T-05` — Buscador de Aulas Libres por Módulo, Día y Rango Horario (✅ COMPLETADO)
 - `T-04` — Buscador de Profesores con Filtros y Estado en Tiempo Real (✅ COMPLETADO)
 - `T-03` — Pipeline de Ingesta y Scraping en Supabase Edge Functions / CLI (✅ COMPLETADO)

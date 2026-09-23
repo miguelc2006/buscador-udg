@@ -15,10 +15,10 @@
 | Capa | Tecnología | Versión / Detalle |
 |------|-----------|-------------------|
 | Frontend | React + Vite | React 18.3, Vite 6.1, TypeScript 5.7, Tailwind CSS 3.4 |
-| Backend & DB | Supabase (PostgreSQL + PostgREST) | Cloud Free Tier, RPC `get_aulas_libres` |
-| Sincronización / Ingesta | Supabase Edge Functions (Deno / TS) | Serverless Scraping SIIAU |
+| Backend & DB | Supabase (PostgreSQL + PostgREST) | Proyecto en la nube configurado, RPC `get_aulas_libres` |
+| Sincronización / Ingesta | Supabase Edge Functions (Deno / TS) | Serverless Scraping SIIAU (Desplegado) |
 | Testing | Vitest | 29 tests unitarios pasando (4 suites) |
-| Hosting | Vercel / Cloudflare Pages | Free Tier |
+| Hosting | Vercel | Despliegue continuo desde GitHub |
 | Mapeo Generacional | Mallas curriculares / JSON | Agrupación de cohortes por sección y carrera (Mock) |
 
 ## Arquitectura vigente
