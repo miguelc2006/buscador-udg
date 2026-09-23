@@ -66,16 +66,33 @@
   - Documento de propuesta técnica con fuentes de mallas de carreras principales (ej. CUCEI / CUCEA).
   - Script o Edge Function para ingestar mallas curriculares a Supabase.
 
+### `T-08` — Conexión con Scraping Real de Oferta Académica (SIIAU)
+- **Tipo:** BACKEND / INGESTA
+- **Prioridad:** 🟠 ALTA
+- **Estado:** 📐 DISEÑO
+- **Objetivo:** Conectar el proyecto con un scraping real de los datos de SIIAU sobre la tabla de oferta académica, basándose en la extracción de datos ya utilizada en el proyecto `C:\Users\amaca\Github\Horario-UDG`.
+- **Criterios de Aceptación:**
+  - [ ] Adaptar la lógica de scraping de `Horario-UDG` (`api/_helpers/siiau.js` y `api/consultar-oferta.js`).
+  - [ ] Integrar el scraper en Supabase Edge Functions o como un worker de ingesta.
+  - [ ] Poblar la base de datos de Supabase con datos reales de la oferta académica.
+  - [ ] Validar que el frontend consuma correctamente los datos reales.
+
 ---
 
 ## Fase 3: Despliegue y Optimización — v1.0.0
 
-### `T-08` — Configuración de CI/CD y Despliegue en Vercel / Cloudflare Pages
-- **Tipo:** DEVOPS
-- **Prioridad:** 🟠 ALTA
-- **Objetivo:** Automatizar build y deploy con GitHub Actions o integración nativa de Vercel.
+### `T-09` — Conexión del Proyecto con GitHub, Supabase y Vercel
+- **Tipo:** DEVOPS / INFRA
+- **Prioridad:** 🔴 CRÍTICA
+- **Estado:** 📐 DISEÑO
+- **Objetivo:** Conectar el proyecto con GitHub (control de versiones), Supabase (backend/DB real) y Vercel (hosting/despliegue) para establecer el entorno de producción.
+- **Criterios de Aceptación:**
+  - [ ] Repositorio inicializado y subido a GitHub.
+  - [ ] Proyecto creado en Supabase y variables de entorno configuradas.
+  - [ ] Proyecto desplegado en Vercel con integración continua desde GitHub.
+  - [ ] Migraciones de base de datos aplicadas en el entorno de Supabase.
 
-### `T-09` — Modo Offline / Caché PWA y Optimización Móvil
+### `T-10` — Modo Offline / Caché PWA y Optimización Móvil
 - **Tipo:** MEJORA
 - **Prioridad:** 🟢 BAJA
 - **Objetivo:** Caché de catálogo de aulas y profesores para consulta ultrarrápida sin latencia.
