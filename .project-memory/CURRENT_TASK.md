@@ -4,32 +4,34 @@
 
 ## Objetivo
 
-**T-09 — Conexión del Proyecto con GitHub, Supabase y Vercel**
+**T-08 — Conexión con Scraping Real de Oferta Académica (SIIAU)**
 
-Conectar el proyecto con GitHub (control de versiones), Supabase (backend/DB real) y Vercel (hosting/despliegue) para establecer el entorno de producción.
+Conectar el proyecto con un scraping real de los datos de SIIAU sobre la tabla de oferta académica, basándose en la extracción de datos ya utilizada en el proyecto `C:\Users\amaca\Github\Horario-UDG`.
 
 ## Identificación
 
 | Campo | Valor |
 |-------|-------|
-| ID | T-09 |
-| Tipo | DEVOPS / INFRA |
-| Prioridad | 🔴 CRÍTICA |
+| ID | T-08 |
+| Tipo | BACKEND / INGESTA |
+| Prioridad | 🟠 ALTA |
 | Complejidad | MEDIA |
 | Estado | 🚧 EN PROGRESO |
-| Rama | feature/T-09-devops-setup |
+| Rama | feature/T-08-scraping-siiau |
 
 ## Alcance
 
 ### Pendiente
-- [x] Repositorio inicializado y subido a GitHub.
-- [x] Proyecto creado en Supabase y variables de entorno configuradas.
-- [ ] Proyecto desplegado en Vercel con integración continua desde GitHub.
-- [x] Migraciones de base de datos aplicadas en el entorno de Supabase.
+- [ ] Poblar la base de datos de Supabase con datos reales de la oferta académica.
+- [ ] Validar que el frontend consuma correctamente los datos reales.
+
+### Completado
+- [x] Adaptar la lógica de scraping de `Horario-UDG` (`api/_helpers/siiau.js` y `api/consultar-oferta.js`).
+- [x] Integrar el scraper en Supabase Edge Functions o como un worker de ingesta.
 
 ## Tareas anteriores
 
-- `T-08` — Conexión con Scraping Real de Oferta Académica (SIIAU) (🚧 PAUSADA - Depende de T-09)
+- `T-09` — Conexión del Proyecto con GitHub, Supabase y Vercel (✅ COMPLETADO)
 - `T-07` — Planificación de Nueva Ruta (Roadmap Phase 2) (✅ COMPLETADO)
 - `T-06` — Localizador de Grupos y Seguimiento de Generaciones (✅ Base Conceptual Implementada)
 - `T-05` — Buscador de Aulas Libres por Módulo, Día y Rango Horario (✅ COMPLETADO)
