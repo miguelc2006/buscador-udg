@@ -234,6 +234,54 @@ serve(async (req) => {
               }
             }
           }
+        } else if (cells.length >= 11) {
+          // Formato plano (fila directa sin tabla anidada)
+          const horaRaw = cells.eq(7).text().trim();
+          const diasRaw = cells.eq(8).text().trim().toUpperCase();
+          const modulo = cells.eq(9).text().trim().replace(/\s+/g, " ") || "SIN MODULO";
+          const aula = cells.eq(10).text().trim().replace(/\s+/g, " ") || "SIN AULA";
+
+          const [hIniStr, hFinStr] = horaRaw.split("-");
+          const hora_inicio = parseTime(hIniStr || "");
+          const hora_fin = parseTime(hFinStr || "");
+
+          // Crear módulo y aula si aplican
+          let aulaId: string | null = null;
+          if (modulo !== "SIN MODULO") {
+            const { data: modData } = await supabaseClient
+              .from("modulos")
+              .upsert({ centro_codigo: centro, codigo_modulo: modulo }, { onConflict: "centro_codigo,codigo_modulo" })
+              .select("id")
+              .single();
+
+            if (modData && aula !== "SIN AULA") {
+              const { data: aulaData } = await supabaseClient
+                .from("aulas")
+                .upsert(
+                  { centro_codigo: centro, modulo_id: modData.id, codigo_aula: aula },
+                  { onConflict: "centro_codigo,codigo_aula" }
+                )
+                .select("id")
+                .single();
+              if (aulaData) aulaId = aulaData.id;
+            }
+          }
+
+          for (const dia of diasRaw) {
+            if (["L", "M", "I", "J", "V", "S"].includes(dia)) {
+              await supabaseClient.from("sesiones_horario").insert({
+                oferta_id: ofertaData.id,
+                nrc,
+                ciclo,
+                dia,
+                hora_inicio,
+                hora_fin,
+                aula_id: aulaId,
+                modulo_texto: modulo,
+                aula_texto: aula,
+              });
+            }
+          }
         }
       }
 
