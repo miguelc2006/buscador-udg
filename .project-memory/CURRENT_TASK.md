@@ -4,31 +4,34 @@
 
 ## Objetivo
 
-**T-07 — Planificación de Nueva Ruta (Roadmap Phase 2)**
+**T-09 — Conexión del Proyecto con GitHub, Supabase y Vercel**
 
-Estandarizar protocolos, documentar el estado actual (T-06 como base conceptual) y desarrollar una nueva fase de planificación de ruta para los siguientes pasos del proyecto.
+Conectar el proyecto con GitHub (control de versiones), Supabase (backend/DB real) y Vercel (hosting/despliegue) para establecer el entorno de producción.
 
 ## Identificación
 
 | Campo | Valor |
 |-------|-------|
-| ID | T-07 |
-| Tipo | PLANIFICACIÓN |
-| Prioridad | 🟠 ALTA |
-| Complejidad | BAJA |
+| ID | T-09 |
+| Tipo | DEVOPS / INFRA |
+| Prioridad | 🔴 CRÍTICA |
+| Complejidad | MEDIA |
 | Estado | 🚧 EN PROGRESO |
-| Rama | develop |
+| Rama | feature/T-09-devops-setup |
 
 ## Alcance
 
 ### Pendiente
-- [ ] Estandarizar protocolos de documentación y arquitectura.
-- [ ] Definir los siguientes pasos para la ingeniería inversa de mallas curriculares.
-- [ ] Esperar instrucciones del usuario para la nueva fase de planificación.
+- [ ] Repositorio inicializado y subido a GitHub.
+- [ ] Proyecto creado en Supabase y variables de entorno configuradas.
+- [ ] Proyecto desplegado en Vercel con integración continua desde GitHub.
+- [ ] Migraciones de base de datos aplicadas en el entorno de Supabase.
 
 ## Tareas anteriores
 
-- `T-06` — Localizador de Grupos y Seguimiento de Generaciones (✅ Base Conceptual Implementada / Ingeniería Inversa Pendiente)
+- `T-08` — Conexión con Scraping Real de Oferta Académica (SIIAU) (🚧 PAUSADA - Depende de T-09)
+- `T-07` — Planificación de Nueva Ruta (Roadmap Phase 2) (✅ COMPLETADO)
+- `T-06` — Localizador de Grupos y Seguimiento de Generaciones (✅ Base Conceptual Implementada)
 - `T-05` — Buscador de Aulas Libres por Módulo, Día y Rango Horario (✅ COMPLETADO)
 - `T-04` — Buscador de Profesores con Filtros y Estado en Tiempo Real (✅ COMPLETADO)
 - `T-03` — Pipeline de Ingesta y Scraping en Supabase Edge Functions / CLI (✅ COMPLETADO)
