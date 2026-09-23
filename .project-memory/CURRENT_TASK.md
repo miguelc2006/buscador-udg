@@ -25,7 +25,7 @@ Conectar el proyecto con GitHub (control de versiones), Supabase (backend/DB rea
 - [x] Repositorio inicializado y subido a GitHub.
 - [x] Proyecto creado en Supabase y variables de entorno configuradas.
 - [ ] Proyecto desplegado en Vercel con integración continua desde GitHub.
-- [ ] Migraciones de base de datos aplicadas en el entorno de Supabase.
+- [x] Migraciones de base de datos aplicadas en el entorno de Supabase.
 
 ## Tareas anteriores
 
