@@ -96,3 +96,14 @@
 - **Tipo:** MEJORA
 - **Prioridad:** 🟢 BAJA
 - **Objetivo:** Caché de catálogo de aulas y profesores para consulta ultrarrápida sin latencia.
+
+### `T-11` — Rediseño Institucional y Formularios Dinámicos (SIIAU)
+- **Tipo:** FUNCIÓN / MEJORA
+- **Prioridad:** 🟠 ALTA
+- **Estado:** 📐 DISEÑO
+- **Objetivo:** Rediseñar el formulario de selección de Centro Universitario, Carrera y Ciclo utilizando el manual de identidad institucional UDG 2025. Conectar estos selectores con el sistema de consulta y scraping de `Horario-UDG` para obtener los catálogos reales dinámicamente.
+- **Criterios de Aceptación:**
+  - [ ] Extraer paleta de colores y tipografías del manual de identidad UDG 2025.
+  - [ ] Aplicar el rediseño institucional a la interfaz principal (Header, Formularios, Botones).
+  - [ ] Implementar endpoint/RPC o Edge Function para obtener la lista real de Centros, Carreras y Ciclos desde SIIAU.
+  - [ ] Hacer que los selectores del frontend sean dinámicos y dependientes (ej. seleccionar Centro carga sus Carreras).
