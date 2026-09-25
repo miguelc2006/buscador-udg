@@ -5,9 +5,9 @@
 ## Identidad
 
 - Nombre: Buscador UDG
-- Versión: v0.1.0
+- Versión: v0.1.0-beta (Planificación)
 - Rama principal: main (desarrollo en `develop`)
-- Etapa actual: Módulos Core Completados (v0.1.0 lista para Release) / Rediseño Institucional Completado
+- Etapa actual: Planificación de Fase 4 (Precisión de Datos y Nuevas Vistas)
 - Descripción: Plataforma web para la consulta y búsqueda inteligente de profesores, aulas libres, ubicación de grupos y seguimiento de generaciones a partir de la oferta académica de la Universidad de Guadalajara.
 
 ## Tecnologías
