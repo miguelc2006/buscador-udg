@@ -4,7 +4,6 @@ import {
   calcularDisponibilidadAula,
   SesionConDetalles,
 } from '../src/lib/schedule-utils';
-import { searchMockFreeRooms } from '../src/services/rooms';
 
 describe('Cálculo de Colisiones y Disponibilidad de Aulas', () => {
   it('detecta solapamiento cuando dos intervalos se cruzan', () => {
@@ -95,78 +94,5 @@ describe('Cálculo de Colisiones y Disponibilidad de Aulas', () => {
     expect(disponibilidad.disponible).toBe(true);
     expect(disponibilidad.proximaOcupacionHoy?.materia_nombre).toBe('ALGEBRA LINEAL');
     expect(disponibilidad.minutosParaProxima).toBe(120); // 13:00 - 11:00 = 120 mins
-  });
-});
-
-describe('Servicio de Búsqueda de Aulas Libres (searchMockFreeRooms)', () => {
-  it('encuentra aulas desocupadas en el rango matutino', () => {
-    const resultados = searchMockFreeRooms({
-      centro: 'CUCEI',
-      ciclo: '2026A',
-      dia: 'L',
-      horaInicio: '09:00',
-      horaFin: '11:00',
-    });
-
-    expect(resultados.length).toBeGreaterThan(0);
-    // M202 no tiene sesiones asignadas, debe estar libre
-    const m202 = resultados.find((r) => r.codigo_aula === 'M202');
-    expect(m202).toBeDefined();
-    expect(m202?.disponible).toBe(true);
-  });
-
-  it('excluye aulas que tienen clases en el horario consultado', () => {
-    // M101 tiene clase Lunes 07:00 a 08:55
-    const resultados = searchMockFreeRooms({
-      centro: 'CUCEI',
-      ciclo: '2026A',
-      dia: 'L',
-      horaInicio: '07:00',
-      horaFin: '08:00',
-    });
-
-    const m101 = resultados.find((r) => r.codigo_aula === 'M101');
-    expect(m101).toBeUndefined(); // Debe estar excluida por ocupada
-  });
-
-  it('filtra correctamente por módulo', () => {
-    const resultados = searchMockFreeRooms({
-      centro: 'CUCEI',
-      ciclo: '2026A',
-      dia: 'V',
-      horaInicio: '15:00',
-      horaFin: '17:00',
-      moduloId: 'MOD M',
-    });
-
-    expect(resultados.every((r) => r.codigo_modulo === 'MOD M')).toBe(true);
-  });
-
-  it('filtra correctamente por tipo de aula (Laboratorio)', () => {
-    const resultados = searchMockFreeRooms({
-      centro: 'CUCEI',
-      ciclo: '2026A',
-      dia: 'V',
-      horaInicio: '15:00',
-      horaFin: '17:00',
-      tipo: 'Laboratorio',
-    });
-
-    expect(resultados.length).toBeGreaterThan(0);
-    expect(resultados.every((r) => r.tipo.toLowerCase() === 'laboratorio')).toBe(true);
-  });
-
-  it('filtra por búsqueda de texto de aula', () => {
-    const resultados = searchMockFreeRooms({
-      centro: 'CUCEI',
-      ciclo: '2026A',
-      dia: 'M',
-      horaInicio: '09:00',
-      horaFin: '11:00',
-      query: 'comp',
-    });
-
-    expect(resultados.length).toBeGreaterThan(0);
-    expect(resultados.some((r) => r.codigo_aula.includes('COMP'))).toBe(true);
   });
 });

@@ -7,15 +7,12 @@ import {
   Clock,
   Layers,
   GraduationCap,
-  Filter,
   RefreshCw,
   School,
   ArrowRight,
 } from 'lucide-react';
 import {
   GrupoAcademico,
-  ProgramaAcademico,
-  getCarreras,
   searchGroups,
 } from '../../services/groups';
 import { GroupScheduleModal } from '../groups/GroupScheduleModal';
@@ -24,11 +21,10 @@ import { formatTime } from '../../lib/schedule-utils';
 interface GroupsViewProps {
   selectedCenter: string;
   selectedCycle: string;
+  selectedCareer: string;
 }
 
-export const GroupsView: React.FC<GroupsViewProps> = ({ selectedCenter, selectedCycle }) => {
-  const [carreras, setCarreras] = useState<ProgramaAcademico[]>([]);
-  const [selectedCarrera, setSelectedCarrera] = useState<string>('TODAS');
+export const GroupsView: React.FC<GroupsViewProps> = ({ selectedCenter, selectedCycle, selectedCareer }) => {
   const [selectedSemestre, setSelectedSemestre] = useState<number>(0); // 0 = Todos
   const [selectedTurno, setSelectedTurno] = useState<'TODOS' | 'Matutino' | 'Vespertino'>('TODOS');
   const [searchTerm, setSearchTerm] = useState('');
@@ -36,14 +32,6 @@ export const GroupsView: React.FC<GroupsViewProps> = ({ selectedCenter, selected
   const [grupos, setGrupos] = useState<GrupoAcademico[]>([]);
   const [loading, setLoading] = useState(true);
   const [selectedGrupoModal, setSelectedGrupoModal] = useState<GrupoAcademico | null>(null);
-
-  // Cargar catálogo de carreras según el centro seleccionado
-  useEffect(() => {
-    const list = getCarreras(selectedCenter);
-    setCarreras(list);
-    setSelectedCarrera('TODAS');
-    setSelectedSemestre(0);
-  }, [selectedCenter]);
 
   // Cargar y filtrar grupos
   useEffect(() => {
@@ -53,7 +41,7 @@ export const GroupsView: React.FC<GroupsViewProps> = ({ selectedCenter, selected
     searchGroups({
       centro_codigo: selectedCenter,
       ciclo: selectedCycle,
-      carrera_codigo: selectedCarrera === 'TODAS' ? undefined : selectedCarrera,
+      carrera_codigo: selectedCareer === 'TODAS' ? undefined : selectedCareer,
       semestre: selectedSemestre === 0 ? undefined : selectedSemestre,
       turno: selectedTurno,
       busqueda: searchTerm,
@@ -71,7 +59,7 @@ export const GroupsView: React.FC<GroupsViewProps> = ({ selectedCenter, selected
     return () => {
       isMounted = false;
     };
-  }, [selectedCenter, selectedCycle, selectedCarrera, selectedSemestre, selectedTurno, searchTerm]);
+  }, [selectedCenter, selectedCycle, selectedCareer, selectedSemestre, selectedTurno, searchTerm]);
 
   // Estadísticas rápidas
   const totalEnClase = useMemo(() => {
@@ -123,26 +111,9 @@ export const GroupsView: React.FC<GroupsViewProps> = ({ selectedCenter, selected
           />
         </div>
 
-        {/* Filtros Interactivos: Carrera, Semestre, Turno */}
+        {/* Filtros Interactivos: Semestre, Turno */}
         <div className="mt-5 pt-5 border-t border-slate-100 flex flex-col lg:flex-row items-start lg:items-center justify-between gap-4">
           <div className="flex flex-wrap items-center gap-3 w-full lg:w-auto">
-            {/* Selector de Carrera */}
-            <div className="flex items-center gap-2 min-w-[220px]">
-              <Filter className="w-4 h-4 text-slate-400" />
-              <select
-                value={selectedCarrera}
-                onChange={(e) => setSelectedCarrera(e.target.value)}
-                className="w-full bg-slate-50 border border-slate-200 text-slate-800 text-xs font-medium rounded-xl px-3 py-2 focus:outline-none focus:ring-2 focus:ring-amber-500"
-              >
-                <option value="TODAS">Todas las Carreras ({carreras.length})</option>
-                {carreras.map((c) => (
-                  <option key={c.codigo} value={c.codigo}>
-                    {c.codigo} — {c.nombre}
-                  </option>
-                ))}
-              </select>
-            </div>
-
             {/* Selector de Turno */}
             <div className="flex items-center gap-1 bg-slate-100 p-1 rounded-xl">
               {(['TODOS', 'Matutino', 'Vespertino'] as const).map((t) => (

@@ -6,8 +6,6 @@ import {
 } from '../src/lib/schedule-utils';
 import {
   getCarreras,
-  searchMockGroups,
-  MOCK_GRUPOS,
 } from '../src/services/groups';
 
 describe('Localizador de Grupos y Estimador de Generaciones (T-06)', () => {
@@ -99,54 +97,6 @@ describe('Localizador de Grupos y Estimador de Generaciones (T-06)', () => {
       const cucea = getCarreras('CUCEA');
       expect(cucea.some((c) => c.codigo === 'LCP')).toBe(true);
       expect(cucea.some((c) => c.codigo === 'INCO')).toBe(false);
-    });
-
-    it('debe filtrar grupos por centro y carrera', () => {
-      const resultado = searchMockGroups({
-        centro_codigo: 'CUCEI',
-        ciclo: '2026B',
-        carrera_codigo: 'INCO',
-      });
-
-      expect(resultado.length).toBeGreaterThan(0);
-      expect(resultado.every((g) => g.carrera_codigo === 'INCO')).toBe(true);
-    });
-
-    it('debe filtrar grupos por semestre específico', () => {
-      const resultado = searchMockGroups({
-        centro_codigo: 'CUCEI',
-        ciclo: '2026B',
-        semestre: 1,
-      });
-
-      expect(resultado.length).toBeGreaterThan(0);
-      expect(resultado.every((g) => g.semestre === 1)).toBe(true);
-    });
-
-    it('debe filtrar grupos por turno', () => {
-      const resultado = searchMockGroups({
-        centro_codigo: 'CUCEI',
-        ciclo: '2026B',
-        turno: 'Vespertino',
-      });
-
-      expect(resultado.length).toBeGreaterThan(0);
-      expect(resultado.every((g) => g.turno === 'Vespertino')).toBe(true);
-    });
-
-    it('debe buscar grupos por nombre o clave de materia', () => {
-      const resultado = searchMockGroups({
-        centro_codigo: 'CUCEI',
-        ciclo: '2026B',
-        busqueda: 'ESTRUCTURAS DE DATOS',
-      });
-
-      expect(resultado.length).toBeGreaterThan(0);
-      expect(
-        resultado.some((g) =>
-          g.materias.some((m) => m.materia_nombre.includes('ESTRUCTURAS DE DATOS'))
-        )
-      ).toBe(true);
     });
   });
 });

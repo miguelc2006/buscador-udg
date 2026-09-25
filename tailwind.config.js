@@ -8,12 +8,17 @@ export default {
     extend: {
       colors: {
         udg: {
-          blue: '#002B49',
-          gold: '#C59B27',
-          red: '#9B111E',
+          blue: '#202945',
+          red: '#B12028',
+          gold: '#FDCF85',
+          green: '#8F993E',
           light: '#F4F6F9',
           dark: '#0B192C'
         }
+      },
+      fontFamily: {
+        sans: ['Montserrat', 'sans-serif'],
+        serif: ['"Times New Roman"', 'serif'],
       }
     },
   },

@@ -19,6 +19,7 @@ import { ProfessorScheduleModal } from '../professors/ProfessorScheduleModal';
 interface ProfessorsViewProps {
   selectedCenter: string;
   selectedCycle: string;
+  selectedCareer: string;
 }
 
 type FilterStatus = 'all' | 'in_class' | 'upcoming_today';
@@ -26,6 +27,7 @@ type FilterStatus = 'all' | 'in_class' | 'upcoming_today';
 export const ProfessorsView: React.FC<ProfessorsViewProps> = ({
   selectedCenter,
   selectedCycle,
+  selectedCareer,
 }) => {
   const [searchTerm, setSearchTerm] = useState('');
   const [debouncedQuery, setDebouncedQuery] = useState('');
@@ -56,7 +58,7 @@ export const ProfessorsView: React.FC<ProfessorsViewProps> = ({
     let isMounted = true;
     setLoading(true);
 
-    searchProfessors(selectedCenter, selectedCycle, debouncedQuery, currentTime)
+    searchProfessors(selectedCenter, selectedCycle, debouncedQuery, currentTime, selectedCareer)
       .then((data) => {
         if (isMounted) {
           setProfessors(data);
@@ -71,7 +73,7 @@ export const ProfessorsView: React.FC<ProfessorsViewProps> = ({
     return () => {
       isMounted = false;
     };
-  }, [selectedCenter, selectedCycle, debouncedQuery]);
+  }, [selectedCenter, selectedCycle, debouncedQuery, selectedCareer]);
 
   // Filtrar según el estado seleccionado
   const filteredProfessors = useMemo(() => {

@@ -1,23 +1,23 @@
 ﻿# Tarea actual
 
-Última actualización: 2026-09-23
+Última actualización: 2026-09-24
 
 ## Objetivo
 
-**T-08 — Conexión con Scraping Real de Oferta Académica (SIIAU)**
+**T-11 — Rediseño Institucional y Formularios Dinámicos (SIIAU)**
 
-Conectar el proyecto con un scraping real de los datos de SIIAU sobre la tabla de oferta académica, basándose en la extracción de datos ya utilizada en el proyecto `C:\Users\amaca\Github\Horario-UDG`.
+Rediseñar el formulario de selección de Centro Universitario, Carrera y Ciclo utilizando el manual de identidad institucional UDG 2025. Conectar estos selectores con el sistema de consulta y scraping de `Horario-UDG` para obtener los catálogos reales dinámicamente.
 
 ## Identificación
 
 | Campo | Valor |
 |-------|-------|
-| ID | T-08 |
-| Tipo | BACKEND / INGESTA |
+| ID | T-11 |
+| Tipo | FUNCIÓN / MEJORA |
 | Prioridad | 🟠 ALTA |
 | Complejidad | MEDIA |
 | Estado | ✅ COMPLETADO |
-| Rama | feature/T-08-scraping-siiau |
+| Rama | feature/T-11-rediseño-formularios |
 
 ## Alcance
 
@@ -25,15 +25,16 @@ Conectar el proyecto con un scraping real de los datos de SIIAU sobre la tabla d
 - (Ninguno)
 
 ### Completado
-- [x] Adaptar la lógica de scraping de `Horario-UDG` (`api/_helpers/siiau.js` y `api/consultar-oferta.js`).
-- [x] Integrar el scraper en Supabase Edge Functions o como un worker de ingesta.
-- [x] Poblar la base de datos de Supabase con datos reales de la oferta académica (CUCEI INCO e INNI).
-- [x] Validar que el frontend consuma correctamente los datos reales (Profesores, Aulas Libres, Grupos).
-- [x] Corregir RPC `get_aulas_libres` para aceptar `p_codigo_modulo` como VARCHAR en lugar de UUID.
+- [x] Extraer paleta de colores y tipografías del manual de identidad UDG 2025.
+- [x] Aplicar el rediseño institucional a la interfaz principal (Header, Formularios, Botones).
+- [x] Implementar endpoint/RPC o Edge Function para obtener la lista real de Centros, Carreras y Ciclos desde SIIAU.
+- [x] Hacer que los selectores del frontend sean dinámicos y dependientes (ej. seleccionar Centro carga sus Carreras).
+- [x] Eliminar datos de prueba (mocks) y conectar las vistas a la base de datos real.
+- [x] Implementar sincronización automática con SIIAU cuando la base de datos local no tiene datos.
 
 ## Tareas anteriores
 
-- `T-09` — Conexión del Proyecto con GitHub, Supabase y Vercel (✅ COMPLETADO)
+- `T-08` — Conexión con Scraping Real de Oferta Académica (SIIAU) (✅ COMPLETADO)
 - `T-07` — Planificación de Nueva Ruta (Roadmap Phase 2) (✅ COMPLETADO)
 - `T-06` — Localizador de Grupos y Seguimiento de Generaciones (✅ Base Conceptual Implementada)
 - `T-05` — Buscador de Aulas Libres por Módulo, Día y Rango Horario (✅ COMPLETADO)

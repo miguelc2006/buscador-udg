@@ -1,5 +1,6 @@
 import { supabase } from '../lib/supabase';
 import { normalizeText } from '../lib/string-utils';
+import { syncSiiau } from './sync';
 import {
   calcularEstadoProfesor,
   EstadoProfesor,
@@ -34,181 +35,7 @@ export interface ProfesorConCarga {
   estadoActual: EstadoProfesor;
 }
 
-// Datos de demostración cuando Supabase aún no tiene registros o no está conectado
-const MOCK_PROFESORES: ProfesorConCarga[] = [
-  {
-    id: 'mock-1',
-    nombre_completo: 'HERNANDEZ LOPEZ, JUAN CARLOS',
-    nombre_normalizado: 'HERNANDEZ LOPEZ, JUAN CARLOS',
-    departamento: 'Ciencias Computacionales',
-    ofertas: [
-      {
-        nrc: '12345',
-        seccion: 'D01',
-        materia_clave: 'I5886',
-        materia_nombre: 'ESTRUCTURAS DE DATOS',
-        creditos: 8,
-        cupo_total: 35,
-        cupo_disponible: 4,
-        sesiones: [
-          {
-            id: 'ses-1',
-            dia: 'L',
-            hora_inicio: '07:00:00',
-            hora_fin: '08:55:00',
-            modulo_texto: 'MOD M',
-            aula_texto: 'M201',
-          },
-          {
-            id: 'ses-2',
-            dia: 'I',
-            hora_inicio: '07:00:00',
-            hora_fin: '08:55:00',
-            modulo_texto: 'MOD M',
-            aula_texto: 'M201',
-          },
-        ],
-      },
-      {
-        nrc: '12346',
-        seccion: 'D02',
-        materia_clave: 'I5887',
-        materia_nombre: 'ALGORITMOS AVANZADOS',
-        creditos: 8,
-        cupo_total: 30,
-        cupo_disponible: 0,
-        sesiones: [
-          {
-            id: 'ses-3',
-            dia: 'M',
-            hora_inicio: '11:00:00',
-            hora_fin: '12:55:00',
-            modulo_texto: 'MOD F',
-            aula_texto: 'F102',
-          },
-          {
-            id: 'ses-4',
-            dia: 'J',
-            hora_inicio: '11:00:00',
-            hora_fin: '12:55:00',
-            modulo_texto: 'MOD F',
-            aula_texto: 'F102',
-          },
-        ],
-      },
-    ],
-    sesionesTotales: [],
-    estadoActual: { enClase: false },
-  },
-  {
-    id: 'mock-2',
-    nombre_completo: 'MARTINEZ RIVERA, ANA LAURA',
-    nombre_normalizado: 'MARTINEZ RIVERA, ANA LAURA',
-    departamento: 'Ingeniería de Software',
-    ofertas: [
-      {
-        nrc: '12347',
-        seccion: 'D03',
-        materia_clave: 'I5890',
-        materia_nombre: 'BASES DE DATOS DISTRIBUIDAS',
-        creditos: 8,
-        cupo_total: 32,
-        cupo_disponible: 10,
-        sesiones: [
-          {
-            id: 'ses-5',
-            dia: 'L',
-            hora_inicio: '09:00:00',
-            hora_fin: '10:55:00',
-            modulo_texto: 'MOD O',
-            aula_texto: 'O105',
-          },
-          {
-            id: 'ses-6',
-            dia: 'I',
-            hora_inicio: '09:00:00',
-            hora_fin: '10:55:00',
-            modulo_texto: 'MOD O',
-            aula_texto: 'O105',
-          },
-          {
-            id: 'ses-7',
-            dia: 'V',
-            hora_inicio: '09:00:00',
-            hora_fin: '10:55:00',
-            modulo_texto: 'MOD O',
-            aula_texto: 'O105',
-          },
-        ],
-      },
-    ],
-    sesionesTotales: [],
-    estadoActual: { enClase: false },
-  },
-  {
-    id: 'mock-3',
-    nombre_completo: 'RAMIREZ GUTIERREZ, JORGE ALBERTO',
-    nombre_normalizado: 'RAMIREZ GUTIERREZ, JORGE ALBERTO',
-    departamento: 'Electrónica y Computación',
-    ofertas: [
-      {
-        nrc: '12348',
-        seccion: 'D04',
-        materia_clave: 'I5895',
-        materia_nombre: 'REDES Y COMUNICACIONES',
-        creditos: 9,
-        cupo_total: 28,
-        cupo_disponible: 2,
-        sesiones: [
-          {
-            id: 'ses-8',
-            dia: 'M',
-            hora_inicio: '13:00:00',
-            hora_fin: '14:55:00',
-            modulo_texto: 'MOD Y',
-            aula_texto: 'LAB-REDES',
-          },
-          {
-            id: 'ses-9',
-            dia: 'J',
-            hora_inicio: '13:00:00',
-            hora_fin: '14:55:00',
-            modulo_texto: 'MOD Y',
-            aula_texto: 'LAB-REDES',
-          },
-        ],
-      },
-    ],
-    sesionesTotales: [],
-    estadoActual: { enClase: false },
-  },
-];
-
-// Inicializar sesiones totales y estado para mocks
-for (const mock of MOCK_PROFESORES) {
-  const todasSesiones: SesionConDetalles[] = [];
-  for (const ofe of mock.ofertas) {
-    for (const ses of ofe.sesiones) {
-      todasSesiones.push({
-        id: ses.id,
-        oferta_id: ofe.nrc,
-        nrc: ofe.nrc,
-        ciclo: '2026A',
-        dia: ses.dia,
-        hora_inicio: ses.hora_inicio,
-        hora_fin: ses.hora_fin,
-        modulo_texto: ses.modulo_texto,
-        aula_texto: ses.aula_texto,
-        materia_nombre: ofe.materia_nombre,
-        materia_clave: ofe.materia_clave,
-        seccion: ofe.seccion,
-        profesor_nombre: mock.nombre_completo,
-      });
-    }
-  }
-  mock.sesionesTotales = todasSesiones;
-  mock.estadoActual = calcularEstadoProfesor(todasSesiones);
-}
+// Datos de demostración eliminados. Se requiere conexión a Supabase.
 
 /**
  * Consulta de profesores con su carga horaria y estado en vivo
@@ -217,7 +44,8 @@ export async function searchProfessors(
   centroCodigo: string,
   ciclo: string,
   query: string = '',
-  referenciaFecha: Date = new Date()
+  referenciaFecha: Date = new Date(),
+  _carrera: string = 'TODAS'
 ): Promise<ProfesorConCarga[]> {
   try {
     let supabaseQuery = supabase
@@ -261,11 +89,21 @@ export async function searchProfessors(
       );
     }
 
+    // Verificar si hay datos en la base de datos para este centro y ciclo
+    const { count } = await supabase
+      .from('oferta_academica')
+      .select('*', { count: 'exact', head: true })
+      .eq('centro_codigo', centroCodigo)
+      .eq('ciclo', ciclo);
+
+    if (count === 0) {
+      await syncSiiau(centroCodigo, ciclo, _carrera);
+    }
+
     const { data, error } = await supabaseQuery.limit(200);
 
     if (error || !data || data.length === 0) {
-      // Si no hay datos en Supabase (ej: base vacía o no configurada), usar mocks filtrados
-      return filterMockProfessores(query, referenciaFecha);
+      return [];
     }
 
     // Agrupar por profesor
@@ -347,23 +185,7 @@ export async function searchProfessors(
 
     return resultado;
   } catch (err) {
-    console.warn('Fallo en consulta Supabase, fallback a mock:', err);
-    return filterMockProfessores(query, referenciaFecha);
+    console.error('Fallo en consulta Supabase:', err);
+    return [];
   }
-}
-
-function filterMockProfessores(query: string, referenciaFecha: Date): ProfesorConCarga[] {
-  const normQuery = normalizeText(query);
-  const filtered = MOCK_PROFESORES.filter((p) => {
-    if (!normQuery) return true;
-    return (
-      p.nombre_normalizado.includes(normQuery) ||
-      p.ofertas.some((o) => normalizeText(o.materia_nombre).includes(normQuery) || o.nrc.includes(query))
-    );
-  });
-
-  return filtered.map((p) => ({
-    ...p,
-    estadoActual: calcularEstadoProfesor(p.sesionesTotales, referenciaFecha),
-  }));
 }

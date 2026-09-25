@@ -69,13 +69,13 @@
 ### `T-08` — Conexión con Scraping Real de Oferta Académica (SIIAU)
 - **Tipo:** BACKEND / INGESTA
 - **Prioridad:** 🟠 ALTA
-- **Estado:** 📐 DISEÑO
+- **Estado:** ✅ COMPLETADO
 - **Objetivo:** Conectar el proyecto con un scraping real de los datos de SIIAU sobre la tabla de oferta académica, basándose en la extracción de datos ya utilizada en el proyecto `C:\Users\amaca\Github\Horario-UDG`.
 - **Criterios de Aceptación:**
-  - [ ] Adaptar la lógica de scraping de `Horario-UDG` (`api/_helpers/siiau.js` y `api/consultar-oferta.js`).
-  - [ ] Integrar el scraper en Supabase Edge Functions o como un worker de ingesta.
-  - [ ] Poblar la base de datos de Supabase con datos reales de la oferta académica.
-  - [ ] Validar que el frontend consuma correctamente los datos reales.
+  - [x] Adaptar la lógica de scraping de `Horario-UDG` (`api/_helpers/siiau.js` y `api/consultar-oferta.js`).
+  - [x] Integrar el scraper en Supabase Edge Functions o como un worker de ingesta.
+  - [x] Poblar la base de datos de Supabase con datos reales de la oferta académica.
+  - [x] Validar que el frontend consuma correctamente los datos reales.
 
 ---
 
@@ -84,13 +84,13 @@
 ### `T-09` — Conexión del Proyecto con GitHub, Supabase y Vercel
 - **Tipo:** DEVOPS / INFRA
 - **Prioridad:** 🔴 CRÍTICA
-- **Estado:** 📐 DISEÑO
+- **Estado:** ✅ COMPLETADO
 - **Objetivo:** Conectar el proyecto con GitHub (control de versiones), Supabase (backend/DB real) y Vercel (hosting/despliegue) para establecer el entorno de producción.
 - **Criterios de Aceptación:**
-  - [ ] Repositorio inicializado y subido a GitHub.
-  - [ ] Proyecto creado en Supabase y variables de entorno configuradas.
-  - [ ] Proyecto desplegado en Vercel con integración continua desde GitHub.
-  - [ ] Migraciones de base de datos aplicadas en el entorno de Supabase.
+  - [x] Repositorio inicializado y subido a GitHub.
+  - [x] Proyecto creado en Supabase y variables de entorno configuradas.
+  - [x] Proyecto desplegado en Vercel con integración continua desde GitHub.
+  - [x] Migraciones de base de datos aplicadas en el entorno de Supabase.
 
 ### `T-10` — Modo Offline / Caché PWA y Optimización Móvil
 - **Tipo:** MEJORA
@@ -98,6 +98,17 @@
 - **Objetivo:** Caché de catálogo de aulas y profesores para consulta ultrarrápida sin latencia.
 
 ### `T-11` — Rediseño Institucional y Formularios Dinámicos (SIIAU)
+- **Tipo:** FEATURE / MEJORA
+- **Prioridad:** 🟠 ALTA
+- **Estado:** ✅ COMPLETADO
+- **Objetivo:** Rediseñar el formulario de selección de Centro Universitario, Carrera y Ciclo utilizando el manual de identidad institucional UDG 2025. Conectar estos selectores con el sistema de consulta y scraping de `Horario-UDG` para obtener los catálogos reales dinámicamente.
+- **Criterios de Aceptación:**
+  - [x] Extraer paleta de colores y tipografías del manual de identidad UDG 2025.
+  - [x] Aplicar el rediseño institucional a la interfaz principal (Header, Formularios, Botones).
+  - [x] Implementar endpoint/RPC o Edge Function para obtener la lista real de Centros, Carreras y Ciclos desde SIIAU.
+  - [x] Hacer que los selectores del frontend sean dinámicos y dependientes (ej. seleccionar Centro carga sus Carreras).
+  - [x] Eliminar datos de prueba (mocks) y conectar las vistas a la base de datos real.
+  - [x] Implementar sincronización automática con SIIAU cuando la base de datos local no tiene datos.
 - **Tipo:** FUNCIÓN / MEJORA
 - **Prioridad:** 🟠 ALTA
 - **Estado:** 📐 DISEÑO

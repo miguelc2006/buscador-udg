@@ -1,5 +1,6 @@
 import { supabase } from '../lib/supabase';
 import { normalizeText } from '../lib/string-utils';
+import { syncSiiau } from './sync';
 import {
   calcularEstadoGrupo,
   estimarCohorteGeneracion,
@@ -134,284 +135,6 @@ export const MALLA_INCO: MateriaMalla[] = [
   { clave: 'I5898', nombre: 'SEGURIDAD INFORMÁTICA', semestre: 5, creditos: 8, area: 'Especializante' },
 ];
 
-// Datos Mock de Grupos Académicos para demostración completa y offline
-const MOCK_GRUPOS: GrupoAcademico[] = [
-  {
-    id: 'CUCEI-INCO-1-D01',
-    centro_codigo: 'CUCEI',
-    carrera_codigo: 'INCO',
-    carrera_nombre: 'Ingeniería en Computación',
-    semestre: 1,
-    seccion: 'D01',
-    turno: 'Matutino',
-    cohorte: estimarCohorteGeneracion(1, '2026B', 8),
-    totalCreditos: 37,
-    totalHorasSemana: 25,
-    modulosFrecuentes: ['MOD M', 'MOD P', 'MOD C'],
-    estadoActual: { enClase: false },
-    materias: [
-      {
-        nrc: '11001',
-        materia_clave: 'I5882',
-        materia_nombre: 'PROGRAMACIÓN ESTRUCTURADA',
-        semestreEstimado: 1,
-        creditos: 8,
-        seccion: 'D01',
-        profesor_nombre: 'GOMEZ BARRAGAN, ALEJANDRO',
-        cupo_total: 35,
-        cupo_disponible: 3,
-        sesiones: [
-          { id: 's-1', dia: 'L', hora_inicio: '07:00:00', hora_fin: '08:55:00', modulo_texto: 'MOD M', aula_texto: 'M101', materia_nombre: 'PROGRAMACIÓN ESTRUCTURADA', seccion: 'D01', profesor_nombre: 'GOMEZ BARRAGAN, ALEJANDRO' },
-          { id: 's-2', dia: 'I', hora_inicio: '07:00:00', hora_fin: '08:55:00', modulo_texto: 'MOD M', aula_texto: 'M101', materia_nombre: 'PROGRAMACIÓN ESTRUCTURADA', seccion: 'D01', profesor_nombre: 'GOMEZ BARRAGAN, ALEJANDRO' },
-        ],
-      },
-      {
-        nrc: '11002',
-        materia_clave: 'I5884',
-        materia_nombre: 'MATEMÁTICAS DISCRETAS',
-        semestreEstimado: 1,
-        creditos: 8,
-        seccion: 'D01',
-        profesor_nombre: 'VARGAS MENDOZA, CARLOS',
-        cupo_total: 35,
-        cupo_disponible: 5,
-        sesiones: [
-          { id: 's-3', dia: 'M', hora_inicio: '07:00:00', hora_fin: '08:55:00', modulo_texto: 'MOD P', aula_texto: 'P102', materia_nombre: 'MATEMÁTICAS DISCRETAS', seccion: 'D01', profesor_nombre: 'VARGAS MENDOZA, CARLOS' },
-          { id: 's-4', dia: 'J', hora_inicio: '07:00:00', hora_fin: '08:55:00', modulo_texto: 'MOD P', aula_texto: 'P102', materia_nombre: 'MATEMÁTICAS DISCRETAS', seccion: 'D01', profesor_nombre: 'VARGAS MENDOZA, CARLOS' },
-        ],
-      },
-      {
-        nrc: '11003',
-        materia_clave: 'MT101',
-        materia_nombre: 'CÁLCULO DIFERENCIAL E INTEGRAL',
-        semestreEstimado: 1,
-        creditos: 9,
-        seccion: 'D01',
-        profesor_nombre: 'PEREZ GUZMAN, HECTOR',
-        cupo_total: 40,
-        cupo_disponible: 0,
-        sesiones: [
-          { id: 's-5', dia: 'L', hora_inicio: '09:00:00', hora_fin: '10:55:00', modulo_texto: 'MOD C', aula_texto: 'C201', materia_nombre: 'CÁLCULO DIFERENCIAL E INTEGRAL', seccion: 'D01', profesor_nombre: 'PEREZ GUZMAN, HECTOR' },
-          { id: 's-6', dia: 'I', hora_inicio: '09:00:00', hora_fin: '10:55:00', modulo_texto: 'MOD C', aula_texto: 'C201', materia_nombre: 'CÁLCULO DIFERENCIAL E INTEGRAL', seccion: 'D01', profesor_nombre: 'PEREZ GUZMAN, HECTOR' },
-          { id: 's-7', dia: 'V', hora_inicio: '07:00:00', hora_fin: '08:55:00', modulo_texto: 'MOD C', aula_texto: 'C201', materia_nombre: 'CÁLCULO DIFERENCIAL E INTEGRAL', seccion: 'D01', profesor_nombre: 'PEREZ GUZMAN, HECTOR' },
-        ],
-      },
-      {
-        nrc: '11004',
-        materia_clave: 'CC100',
-        materia_nombre: 'INTRODUCCIÓN A LA COMPUTACIÓN',
-        semestreEstimado: 1,
-        creditos: 6,
-        seccion: 'D01',
-        profesor_nombre: 'MARTINEZ FLORES, LUCIA',
-        cupo_total: 30,
-        cupo_disponible: 2,
-        sesiones: [
-          { id: 's-8', dia: 'M', hora_inicio: '09:00:00', hora_fin: '10:55:00', modulo_texto: 'MOD M', aula_texto: 'M105', materia_nombre: 'INTRODUCCIÓN A LA COMPUTACIÓN', seccion: 'D01', profesor_nombre: 'MARTINEZ FLORES, LUCIA' },
-          { id: 's-9', dia: 'J', hora_inicio: '09:00:00', hora_fin: '10:55:00', modulo_texto: 'MOD M', aula_texto: 'M105', materia_nombre: 'INTRODUCCIÓN A LA COMPUTACIÓN', seccion: 'D01', profesor_nombre: 'MARTINEZ FLORES, LUCIA' },
-        ],
-      },
-    ],
-    sesionesTotales: [],
-  },
-  {
-    id: 'CUCEI-INCO-3-D01',
-    centro_codigo: 'CUCEI',
-    carrera_codigo: 'INCO',
-    carrera_nombre: 'Ingeniería en Computación',
-    semestre: 3,
-    seccion: 'D01',
-    turno: 'Matutino',
-    cohorte: estimarCohorteGeneracion(3, '2026B', 8),
-    totalCreditos: 32,
-    totalHorasSemana: 20,
-    modulosFrecuentes: ['MOD M', 'MOD P', 'LAB REDES'],
-    estadoActual: { enClase: false },
-    materias: [
-      {
-        nrc: '13001',
-        materia_clave: 'I5887',
-        materia_nombre: 'ALGORITMOS AVANZADOS',
-        semestreEstimado: 3,
-        creditos: 8,
-        seccion: 'D01',
-        profesor_nombre: 'HERNANDEZ LOPEZ, JUAN CARLOS',
-        cupo_total: 35,
-        cupo_disponible: 4,
-        sesiones: [
-          { id: 's-10', dia: 'L', hora_inicio: '07:00:00', hora_fin: '08:55:00', modulo_texto: 'MOD M', aula_texto: 'M201', materia_nombre: 'ALGORITMOS AVANZADOS', seccion: 'D01', profesor_nombre: 'HERNANDEZ LOPEZ, JUAN CARLOS' },
-          { id: 's-11', dia: 'I', hora_inicio: '07:00:00', hora_fin: '08:55:00', modulo_texto: 'MOD M', aula_texto: 'M201', materia_nombre: 'ALGORITMOS AVANZADOS', seccion: 'D01', profesor_nombre: 'HERNANDEZ LOPEZ, JUAN CARLOS' },
-        ],
-      },
-      {
-        nrc: '13002',
-        materia_clave: 'I5891',
-        materia_nombre: 'BASES DE DATOS',
-        semestreEstimado: 3,
-        creditos: 8,
-        seccion: 'D01',
-        profesor_nombre: 'TORRES NAVARRO, ROBERTO',
-        cupo_total: 35,
-        cupo_disponible: 1,
-        sesiones: [
-          { id: 's-12', dia: 'M', hora_inicio: '07:00:00', hora_fin: '08:55:00', modulo_texto: 'MOD M', aula_texto: 'M203', materia_nombre: 'BASES DE DATOS', seccion: 'D01', profesor_nombre: 'TORRES NAVARRO, ROBERTO' },
-          { id: 's-13', dia: 'J', hora_inicio: '07:00:00', hora_fin: '08:55:00', modulo_texto: 'MOD M', aula_texto: 'M203', materia_nombre: 'BASES DE DATOS', seccion: 'D01', profesor_nombre: 'TORRES NAVARRO, ROBERTO' },
-        ],
-      },
-      {
-        nrc: '13003',
-        materia_clave: 'I5888',
-        materia_nombre: 'ARQUITECTURA DE COMPUTADORAS',
-        semestreEstimado: 3,
-        creditos: 8,
-        seccion: 'D01',
-        profesor_nombre: 'SILVA MORALES, PATRICIA',
-        cupo_total: 30,
-        cupo_disponible: 0,
-        sesiones: [
-          { id: 's-14', dia: 'L', hora_inicio: '09:00:00', hora_fin: '10:55:00', modulo_texto: 'MOD P', aula_texto: 'P204', materia_nombre: 'ARQUITECTURA DE COMPUTADORAS', seccion: 'D01', profesor_nombre: 'SILVA MORALES, PATRICIA' },
-          { id: 's-15', dia: 'I', hora_inicio: '09:00:00', hora_fin: '10:55:00', modulo_texto: 'MOD P', aula_texto: 'P204', materia_nombre: 'ARQUITECTURA DE COMPUTADORAS', seccion: 'D01', profesor_nombre: 'SILVA MORALES, PATRICIA' },
-        ],
-      },
-      {
-        nrc: '13004',
-        materia_clave: 'MT201',
-        materia_nombre: 'ECUACIONES DIFERENCIALES',
-        semestreEstimado: 3,
-        creditos: 8,
-        seccion: 'D01',
-        profesor_nombre: 'RAMIREZ CHAVEZ, JORGE',
-        cupo_total: 40,
-        cupo_disponible: 6,
-        sesiones: [
-          { id: 's-16', dia: 'M', hora_inicio: '09:00:00', hora_fin: '10:55:00', modulo_texto: 'MOD P', aula_texto: 'P201', materia_nombre: 'ECUACIONES DIFERENCIALES', seccion: 'D01', profesor_nombre: 'RAMIREZ CHAVEZ, JORGE' },
-          { id: 's-17', dia: 'J', hora_inicio: '09:00:00', hora_fin: '10:55:00', modulo_texto: 'MOD P', aula_texto: 'P201', materia_nombre: 'ECUACIONES DIFERENCIALES', seccion: 'D01', profesor_nombre: 'RAMIREZ CHAVEZ, JORGE' },
-        ],
-      },
-    ],
-    sesionesTotales: [],
-  },
-  {
-    id: 'CUCEI-INNI-2-V01',
-    centro_codigo: 'CUCEI',
-    carrera_codigo: 'INNI',
-    carrera_nombre: 'Ingeniería Informática',
-    semestre: 2,
-    seccion: 'V01',
-    turno: 'Vespertino',
-    cohorte: estimarCohorteGeneracion(2, '2026B', 8),
-    totalCreditos: 32,
-    totalHorasSemana: 20,
-    modulosFrecuentes: ['MOD M', 'MOD P'],
-    estadoActual: { enClase: false },
-    materias: [
-      {
-        nrc: '22001',
-        materia_clave: 'I5886',
-        materia_nombre: 'ESTRUCTURAS DE DATOS',
-        semestreEstimado: 2,
-        creditos: 8,
-        seccion: 'V01',
-        profesor_nombre: 'RUIZ DIAZ, ESTEBAN',
-        cupo_total: 35,
-        cupo_disponible: 8,
-        sesiones: [
-          { id: 's-18', dia: 'L', hora_inicio: '15:00:00', hora_fin: '16:55:00', modulo_texto: 'MOD M', aula_texto: 'M202', materia_nombre: 'ESTRUCTURAS DE DATOS', seccion: 'V01', profesor_nombre: 'RUIZ DIAZ, ESTEBAN' },
-          { id: 's-19', dia: 'I', hora_inicio: '15:00:00', hora_fin: '16:55:00', modulo_texto: 'MOD M', aula_texto: 'M202', materia_nombre: 'ESTRUCTURAS DE DATOS', seccion: 'V01', profesor_nombre: 'RUIZ DIAZ, ESTEBAN' },
-        ],
-      },
-      {
-        nrc: '22002',
-        materia_clave: 'I5885',
-        materia_nombre: 'PROGRAMACIÓN ORIENTADA A OBJETOS',
-        semestreEstimado: 2,
-        creditos: 8,
-        seccion: 'V01',
-        profesor_nombre: 'MENDOZA RIVERA, LAURA',
-        cupo_total: 35,
-        cupo_disponible: 2,
-        sesiones: [
-          { id: 's-20', dia: 'M', hora_inicio: '15:00:00', hora_fin: '16:55:00', modulo_texto: 'MOD M', aula_texto: 'M204', materia_nombre: 'PROGRAMACIÓN ORIENTADA A OBJETOS', seccion: 'V01', profesor_nombre: 'MENDOZA RIVERA, LAURA' },
-          { id: 's-21', dia: 'J', hora_inicio: '15:00:00', hora_fin: '16:55:00', modulo_texto: 'MOD M', aula_texto: 'M204', materia_nombre: 'PROGRAMACIÓN ORIENTADA A OBJETOS', seccion: 'V01', profesor_nombre: 'MENDOZA RIVERA, LAURA' },
-        ],
-      },
-      {
-        nrc: '22003',
-        materia_clave: 'MT102',
-        materia_nombre: 'ÁLGEBRA LINEAL',
-        semestreEstimado: 2,
-        creditos: 8,
-        seccion: 'V01',
-        profesor_nombre: 'ALVAREZ SANDOVAL, FERNANDO',
-        cupo_total: 40,
-        cupo_disponible: 12,
-        sesiones: [
-          { id: 's-22', dia: 'L', hora_inicio: '17:00:00', hora_fin: '18:55:00', modulo_texto: 'MOD P', aula_texto: 'P103', materia_nombre: 'ÁLGEBRA LINEAL', seccion: 'V01', profesor_nombre: 'ALVAREZ SANDOVAL, FERNANDO' },
-          { id: 's-23', dia: 'I', hora_inicio: '17:00:00', hora_fin: '18:55:00', modulo_texto: 'MOD P', aula_texto: 'P103', materia_nombre: 'ÁLGEBRA LINEAL', seccion: 'V01', profesor_nombre: 'ALVAREZ SANDOVAL, FERNANDO' },
-        ],
-      },
-    ],
-    sesionesTotales: [],
-  },
-  {
-    id: 'CUCEA-LCP-1-D01',
-    centro_codigo: 'CUCEA',
-    carrera_codigo: 'LCP',
-    carrera_nombre: 'Licenciatura en Contaduría Pública',
-    semestre: 1,
-    seccion: 'D01',
-    turno: 'Matutino',
-    cohorte: estimarCohorteGeneracion(1, '2026B', 8),
-    totalCreditos: 30,
-    totalHorasSemana: 20,
-    modulosFrecuentes: ['EDIF A', 'EDIF B'],
-    estadoActual: { enClase: false },
-    materias: [
-      {
-        nrc: '31001',
-        materia_clave: 'CP101',
-        materia_nombre: 'CONTABILIDAD BÁSICA I',
-        semestreEstimado: 1,
-        creditos: 8,
-        seccion: 'D01',
-        profesor_nombre: 'GUTIERREZ LARA, MARTHA',
-        cupo_total: 40,
-        cupo_disponible: 5,
-        sesiones: [
-          { id: 's-24', dia: 'L', hora_inicio: '07:00:00', hora_fin: '08:55:00', modulo_texto: 'EDIF A', aula_texto: 'A101', materia_nombre: 'CONTABILIDAD BÁSICA I', seccion: 'D01', profesor_nombre: 'GUTIERREZ LARA, MARTHA' },
-          { id: 's-25', dia: 'I', hora_inicio: '07:00:00', hora_fin: '08:55:00', modulo_texto: 'EDIF A', aula_texto: 'A101', materia_nombre: 'CONTABILIDAD BÁSICA I', seccion: 'D01', profesor_nombre: 'GUTIERREZ LARA, MARTHA' },
-        ],
-      },
-      {
-        nrc: '31002',
-        materia_clave: 'AD101',
-        materia_nombre: 'ADMINISTRACIÓN GENERAL',
-        semestreEstimado: 1,
-        creditos: 8,
-        seccion: 'D01',
-        profesor_nombre: 'RANGEL OROZCO, GABRIEL',
-        cupo_total: 40,
-        cupo_disponible: 3,
-        sesiones: [
-          { id: 's-26', dia: 'M', hora_inicio: '07:00:00', hora_fin: '08:55:00', modulo_texto: 'EDIF B', aula_texto: 'B102', materia_nombre: 'ADMINISTRACIÓN GENERAL', seccion: 'D01', profesor_nombre: 'RANGEL OROZCO, GABRIEL' },
-          { id: 's-27', dia: 'J', hora_inicio: '07:00:00', hora_fin: '08:55:00', modulo_texto: 'EDIF B', aula_texto: 'B102', materia_nombre: 'ADMINISTRACIÓN GENERAL', seccion: 'D01', profesor_nombre: 'RANGEL OROZCO, GABRIEL' },
-        ],
-      },
-    ],
-    sesionesTotales: [],
-  },
-];
-
-// Inicializar sesiones totales y estado para cada grupo mock
-MOCK_GRUPOS.forEach((g) => {
-  const todasSesiones: SesionConDetalles[] = [];
-  g.materias.forEach((m) => {
-    todasSesiones.push(...m.sesiones);
-  });
-  g.sesionesTotales = todasSesiones;
-  g.estadoActual = calcularEstadoGrupo(todasSesiones);
-});
-
 /**
  * Obtiene la lista de carreras disponibles para un Centro Universitario
  */
@@ -425,6 +148,17 @@ export function getCarreras(centro_codigo?: string): ProgramaAcademico[] {
  */
 export async function searchGroups(filtros: FiltrosGrupos): Promise<GrupoAcademico[]> {
   try {
+    // Verificar si hay datos en la base de datos para este centro y ciclo
+    const { count } = await supabase
+      .from('oferta_academica')
+      .select('*', { count: 'exact', head: true })
+      .eq('centro_codigo', filtros.centro_codigo)
+      .eq('ciclo', filtros.ciclo);
+
+    if (count === 0) {
+      await syncSiiau(filtros.centro_codigo, filtros.ciclo, filtros.carrera_codigo || 'TODAS');
+    }
+
     // Intentar consultar Supabase si está disponible
     const { data: ofertas, error } = await supabase
       .from('oferta_academica')
@@ -463,7 +197,7 @@ export async function searchGroups(filtros: FiltrosGrupos): Promise<GrupoAcademi
       .eq('ciclo', filtros.ciclo);
 
     if (error || !ofertas || ofertas.length === 0) {
-      return searchMockGroups(filtros);
+      return [];
     }
 
     // Agrupar ofertas por sección y carrera aproximada
@@ -560,27 +294,10 @@ export async function searchGroups(filtros: FiltrosGrupos): Promise<GrupoAcademi
     }
 
     return filtrarGrupos(gruposList, filtros);
-  } catch {
-    return searchMockGroups(filtros);
+  } catch (err) {
+    console.error('Fallo en consulta Supabase:', err);
+    return [];
   }
-}
-
-/**
- * Filtrado en memoria de grupos Mock
- */
-export function searchMockGroups(filtros: FiltrosGrupos): GrupoAcademico[] {
-  let resultado = MOCK_GRUPOS.map((g) => {
-    // Recalcular estado actual en tiempo real
-    const estado = calcularEstadoGrupo(g.sesionesTotales);
-    const cohorte = estimarCohorteGeneracion(g.semestre, filtros.ciclo || '2026B');
-    return {
-      ...g,
-      estadoActual: estado,
-      cohorte,
-    };
-  });
-
-  return filtrarGrupos(resultado, filtros);
 }
 
 function filtrarGrupos(grupos: GrupoAcademico[], filtros: FiltrosGrupos): GrupoAcademico[] {
